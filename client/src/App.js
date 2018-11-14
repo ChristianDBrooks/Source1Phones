@@ -1,21 +1,21 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import NavBar from "./components/NavBar/NavBar";
+import AboutPage from "./pages/AboutPage";
+import TaskPage from "./pages/TaskPage";
+import ChatPage from "./pages/ChatPage";
+import RepairPage from "./pages/RepairPage";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+const App = () => (
+  <Router>
+    <div>
+      <NavBar />
+      <Route exact path="/" component={AboutPage}/>
+      <Route exact path="/tasks" component={TaskPage}/>
+      <Route exact path="/chat" component={ChatPage}/>
+      <Route exact path="/repair" component={RepairPage}/>
+    </div>
+  </Router>
+);
 
 export default App;
