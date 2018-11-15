@@ -81,4 +81,34 @@ module.exports = (app) => {
 
         })
     })
+
+    // Route 7
+    // Get all users inside users collection.
+    app.get("/api/employee", (req, res) => {
+        db.Employee.find({}, (err, result) => {
+            if (err) {
+                console.log("Error: ", err)
+                res.status(400).end();
+            }
+            console.log("\n\nSuccess -- Found All Results\n\n", result);
+            res.json(result);
+        })
+    })
+
+    // Route 8
+    // Create a new employee!
+    app.post("/api/employee", (req, res) => {
+        db.Employee.create({
+            employeeName: req.body.employee,
+            dateEmployed: moment().format("MM/DD/YY").toString()
+        }, function (err, newEmployee) {
+            if (err) {
+                console.log("Error: ", err);
+                res.status(400).end();
+            } else {
+                console.log("\n\nSuccess -- New Task Created\n\n", newEmployee);
+                res.status(200).end();
+            }
+        })
+    })
 };

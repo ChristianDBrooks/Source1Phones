@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "axios";
 
-const createTask = () => {
-    axios.post("http://localhost:3001/api/task")
-}
+// const createTask = () => {
+//     axios.post("http://localhost:3001/api/task")
+// }
 
 const TaskForm = () => (
 <form action="http://localhost:3001/api/task" method="POST">

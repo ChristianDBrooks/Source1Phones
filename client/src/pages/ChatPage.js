@@ -29,7 +29,7 @@ const Chat = () => (
             <div className="col-4">
                 <form action="">
                     <div className="form-group">
-                        <textarea name="online-users" id="" cols="30" rows="10" className="form-control">User-Random</textarea>
+                        <textarea name="online-users" cols="30" rows="10" className="form-control"></textarea>
                     </div>
                 </form>
             </div>
