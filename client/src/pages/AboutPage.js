@@ -10,15 +10,15 @@ const About = () => (
         <div>
             <div className="row pt-1">
                 <div className="col-12 mb-3">
-                    S1P Employee Web Application is an interactive user interface to create streamlined communication, efficincy
+                    S1P Employee Web Application is an interactive user interface to create streamlined communication, efficiency
                     in time management, and knowledge in repair.
-        </div>
+                </div>
             </div>
 
             <div className="row">
 
                 <div className="col">
-                    <div className="card border-primary mb-3" style={{maxWidth: "20rem"}}>
+                    <div className="card border-primary mb-3" style={{ maxWidth: "20rem" }}>
 
                         <div className="card-header">Communication</div>
 
@@ -31,7 +31,7 @@ const About = () => (
                 </div>
 
                 <div className="col">
-                    <div className="card border-primary mb-3" style={{maxWidth: "20rem"}}>
+                    <div className="card border-primary mb-3" style={{ maxWidth: "20rem" }}>
 
                         <div className="card-header">Time Managment</div>
 
@@ -44,7 +44,7 @@ const About = () => (
                 </div>
 
                 <div className="col">
-                    <div className="card border-primary mb-3" style={{maxWidth: "20rem"}}>
+                    <div className="card border-primary mb-3" style={{ maxWidth: "20rem" }}>
 
                         <div className="card-header">Repair Knowledge</div>
 
