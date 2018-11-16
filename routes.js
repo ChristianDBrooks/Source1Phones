@@ -3,36 +3,42 @@ const moment = require("moment");
 
 module.exports = (app) => {
     // Route 1
-    // Get all tasks inside tasks collection.
+    // Get all tasks inside tasks collection sorted by priority.
     app.get("/api/task", (req, res) => {
-        db.Task.find({}, (err, result) => {
+        db.Task.find({}, null, {sort: {priority: 1}}, (err, result) => {
             if (err) {
                 console.log("Error: ", err)
                 res.status(400).end();
             }
-            console.log("\n\nSuccess -- Found All Results\n\n", result);
+            // console.log("\n\nSuccess -- Found All Results\n\n", result);
             res.json(result);
         })
     })
 
     // Route 2
-    // Create a new task
+    // Create a new task 
     app.post("/api/task", (req, res) => {
-        db.Task.create({
-            customerName: req.body.name,
-            device: req.body.device,
-            repair: req.body.repair,
-            employee: req.body.employee,
-            priority: req.body.priority,
-            timeIn: moment().format("MM/DD/YY - HH:MM").toString()
-        }, function (err, newTask) {
-            if (err) {
-                console.log("Error: ", err);
-                res.status(400).end();
-            } else {
-                console.log("\n\nSuccess -- New Task Created\n\n", newTask);
-                res.status(200).end();
-            }
+        console.log("This is the requrest body", req.body);
+        // Check the count of tasks existing.
+        db.Task.count().then(count => {
+            db.Task.create({
+                customerName: req.body.name,
+                device: req.body.device,
+                repair: req.body.repair,
+                employee: req.body.employee,
+                // Create a new priority value based on number of tasks currently in collection.
+                priority: count + 1,
+                timeIn: moment().format("hh:mm A").toString(),
+                date: moment().format("MM/DD/YYYY - H:MM").toString()
+            }, function (err, newTask) {
+                if (err) {
+                    console.log("Error: ", err);
+                    res.status(400).end();
+                } else {
+                    // console.log("\n\nSuccess -- New Task Created\n\n", newTask);
+                    res.status(200).end();
+                }
+            })    
         })
     })
 
@@ -45,7 +51,7 @@ module.exports = (app) => {
                 console.log("Error: ", err)
                 res.status(400).end();
             } else {
-                console.log("\n\nSuccess -- Updated Task \n\n", result);
+                // console.log("\n\nSuccess -- Updated Task \n\n", result);
                 res.status(200).end();     
             }
 
@@ -60,7 +66,7 @@ module.exports = (app) => {
                 console.log("Error: ", err)
                 res.status(400).end();
             } else {
-                console.log("\n\nSuccess -- Updated Task \n\n", result);
+                // console.log("\n\nSuccess -- Updated Task \n\n", result);
                 res.status(200).end();     
             }
 
@@ -75,7 +81,7 @@ module.exports = (app) => {
                 console.log("Error: ", err)
                 res.status(400).end();
             } else {
-                console.log("\n\nSuccess -- Deleted Task\n\n", deletedTask);
+                // console.log("\n\nSuccess -- Deleted Task\n\n", deletedTask);
                 res.status(200).end();
             }
 
@@ -90,7 +96,7 @@ module.exports = (app) => {
                 console.log("Error: ", err)
                 res.status(400).end();
             }
-            console.log("\n\nSuccess -- Found All Results\n\n", result);
+            // console.log("\n\nSuccess -- Found All Results\n\n", result);
             res.json(result);
         })
     })
@@ -106,7 +112,7 @@ module.exports = (app) => {
                 console.log("Error: ", err);
                 res.status(400).end();
             } else {
-                console.log("\n\nSuccess -- New Task Created\n\n", newEmployee);
+                // console.log("\n\nSuccess -- New Task Created\n\n", newEmployee);
                 res.status(200).end();
             }
         })

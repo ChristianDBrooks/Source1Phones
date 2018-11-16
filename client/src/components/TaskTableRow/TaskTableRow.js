@@ -7,12 +7,11 @@ const TaskTableRow = props => (
         <td>{props.device}</td>
         <td>{props.time}</td>
         <td>
-            <label htmlFor="employee">Employee Assigned</label>
             <select className="form-control" id="employee" name="employee">
                 {props.employees.map(employee =>
                     employee.employeeName === props.employee ? 
-                    <option selected>{props.employee}</option> : 
-                    <option>{employee.employeeName}</option>
+                    <option key={props.employee}>{props.employee}</option> : 
+                    <option key={employee.employeeName}>{employee.employeeName}</option>
                     )}
             </select>
         </td>

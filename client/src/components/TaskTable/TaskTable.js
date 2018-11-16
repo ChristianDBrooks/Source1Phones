@@ -2,7 +2,7 @@ import React from "react";
 
 const TaskTable = props => (
 <table className="table">
-  <thead>
+  <thead className="text-center">
     <tr>
         <th scope="col">No.</th>
         <th scope="col">Customer Name</th>
@@ -12,7 +12,7 @@ const TaskTable = props => (
         <th></th>
     </tr>
   </thead>
-  <tbody>
+  <tbody className="text-center">
       {props.children}
   </tbody>
 </table>
