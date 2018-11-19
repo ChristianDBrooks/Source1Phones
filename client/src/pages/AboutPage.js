@@ -20,10 +20,10 @@ const About = () => (
                 <div className="col">
                     <div className="card border-primary mb-3" style={{ maxWidth: "20rem" }}>
 
-                        <div className="card-header">Communication</div>
+                        <div className="card-header">Time Managment</div>
 
                         <div className="card-body">
-                            <h4 className="card-title">Communicating between team members and customers.</h4>
+                            <h4 className="card-title">Customizable task lists with unified access from all team members.</h4>
                             <p className="card-text">Some quick example text to build on the card title and make up the bulk of the
                 card's content.</p>
                         </div>
@@ -33,12 +33,12 @@ const About = () => (
                 <div className="col">
                     <div className="card border-primary mb-3" style={{ maxWidth: "20rem" }}>
 
-                        <div className="card-header">Time Managment</div>
+                        <div className="card-header">Communication</div>
 
                         <div className="card-body">
-                            <h4 className="card-title">Customizable task lists with unified access from all team members.</h4>
+                            <h4 className="card-title">Communicating between team members and customers.</h4>
                             <p className="card-text">Some quick example text to build on the card title and make up the bulk of the
-                card's content.</p>
+                            card's content.</p>
                         </div>
                     </div>
                 </div>

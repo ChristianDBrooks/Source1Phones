@@ -13,7 +13,7 @@ const Navbar = () => (
       <NavTabs />
 
       <div className="mr-5">
-        <img src="https://via.placeholder.com/40x40" alt="Not-Found.jpg" className="rounded-circle mx-2" />
+        <img src="https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1-744x744.jpg" alt="Not-Found.jpg" className="rounded-circle mx-2" style={{width: 50, height: 50}} />
         <i className="fas fa-bars fa-lg mr-1"></i>
       </div>
     </div>

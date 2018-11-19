@@ -8,6 +8,14 @@ const employeeSchema = new Schema({
   },
   dateEmployed: {
       type: String
+  },
+  isOnline: {
+    type: Boolean,
+    default: false,
+  },
+  employeeThumbnail: {
+    type: String,
+    default: "https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1-744x744.jpg"
   }
 });
 

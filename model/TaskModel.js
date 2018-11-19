@@ -25,6 +25,11 @@ const taskSchema = new Schema({
   },
   employee: {
     type: String
+  },
+  archived: {
+    type: Boolean,
+    default: false,
+    required: true
   }
 });
 

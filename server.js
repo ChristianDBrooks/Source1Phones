@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 mongoose.connect("mongodb://localhost/phoneStoreDB");
 
+// Middleware
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
 // Serve up static assets (usually on heroku)
