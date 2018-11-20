@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import NavBar from "../components/NavBar/NavBar.js"
+import NavBar from "../components/NavBar/NavBar.js";
 import io from "socket.io-client";
 import moment from "moment";
 

@@ -1,8 +1,8 @@
 import React from "react";
-import NavTabs from "./NavTabs.js"
+import NavTabs from "./NavTabs.js";
 import { Link } from "react-router-dom";
 
-const Navbar = (props) => (
+const NavBar = (props) => (
   <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow">
     <a className="navbar-brand ml-5">Source1Phones</a>
     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01"
@@ -21,4 +21,4 @@ const Navbar = (props) => (
   </nav>
 );
 
-export default Navbar;
+export default NavBar;
