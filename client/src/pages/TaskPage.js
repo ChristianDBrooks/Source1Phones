@@ -4,7 +4,7 @@ import employeeAPI from "../utils/api/employeeAPI";
 import TaskForm from "../components/TaskForm/TaskForm.js";
 import TaskTable from "../components/TaskTable/TaskTable.js";
 import TaskTableRow from "../components/TaskTableRow/TaskTableRow.js";
-import NavBar from "../components/NavBar/NavBar.js";
+import NavBar from "../components/NavBar/NavBar";
 
 class Task extends Component {
     state = {
