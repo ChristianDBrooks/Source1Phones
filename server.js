@@ -1,8 +1,10 @@
 const express = require("express");
+const app = express();
+const server = require("http").createServer(app);
+const io = require('socket.io')(server);
 const routes = require("./routes.js")
 const path = require("path");
 const PORT = process.env.PORT || 3001;
-const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 mongoose.connect("mongodb://localhost/phoneStoreDB");
@@ -21,10 +23,26 @@ routes(app);
 
 // Send every request to the React app
 // Define any API routes before this runs
-app.get("*", function(req, res) {
+app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "./client/public/index.html"));
 });
 
-app.listen(PORT, function() {
+
+// Socket.io
+
+io.on('connection', function (client) {
+  console.log("User connected!");
+
+  client.on('sendMessage', function (data) {
+    io.emit('receiveMessage', data);
+  })
+
+  client.on('disconnect', function () {
+    console.log("User disconnected!")
+  });
+});
+
+//Server
+server.listen(PORT, function () {
   console.log(`🌎 ==> Server now on port ${PORT}!`);
 });

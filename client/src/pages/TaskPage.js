@@ -4,6 +4,7 @@ import employeeAPI from "../utils/api/employeeAPI";
 import TaskForm from "../components/TaskForm/TaskForm.js";
 import TaskTable from "../components/TaskTable/TaskTable.js";
 import TaskTableRow from "../components/TaskTableRow/TaskTableRow.js";
+import NavBar from "../components/NavBar/NavBar.js"
 
 class Task extends Component {
     state = {
@@ -66,7 +67,7 @@ class Task extends Component {
         taskAPI.getAllTasks()
             .then(results => {
                 this.setState({ tasks: results.data })
-                console.log(this.state.tasks);
+                // console.log(this.state.tasks);
             })
             .catch(err => { if (err) console.log(err) });
     }
@@ -83,7 +84,7 @@ class Task extends Component {
 
     increasePriority = (id, currentPriority) => {
         if ((currentPriority - 1) <= 0) {
-            console.log("Can't do that!")
+            // console.log("Can't do that!")
             return;
         }
         console.log("Going Up");
@@ -95,7 +96,7 @@ class Task extends Component {
 
     decreasePriority = (id, currentPriority) => {
         if ((currentPriority + 1) > this.state.tasks.length) {
-            console.log("Can't do that!")
+            // console.log("Can't do that!")
             return;
         }
         console.log("Going Down");
@@ -120,36 +121,41 @@ class Task extends Component {
     render() {
         return (
             <div>
-                <div className="container bg-light mt-4 p-4 shadow">
-                    <h1>Daily Tasks</h1>
-                    <hr className="bg-light" />
-                    {/* Display Table Container Component*/}
-                    <TaskTable>
-                        {this.state.tasks.map( (task, index) => 
-                        <TaskTableRow
-                            id={task._id}
-                            priority={(index + 1)}
-                            inputUpdater={this.inputChangeUpdater}
-                            name={task.customerName}
-                            device={task.device}
-                            time={task.timeIn}
-                            employee={task.employee}
-                            key={task.priority}
+
+                <NavBar />
+                <div>
+                    <div className="container bg-light mt-4 p-4 shadow">
+                        <h1>Daily Tasks</h1>
+                        <hr className="bg-light" />
+                        {/* Display Table Container Component*/}
+                        <TaskTable>
+                            {this.state.tasks.map( (task, index) => 
+                            <TaskTableRow
+                                id={task._id}
+                                priority={(index + 1)}
+                                inputUpdater={this.inputChangeUpdater}
+                                name={task.customerName}
+                                device={task.device}
+                                repair={task.repair}
+                                time={task.timeIn}
+                                employee={task.employee}
+                                key={task.priority}
+                                employees={this.state.employees}
+                                complete={this.archiveTask}
+                                goUp={this.increasePriority}
+                                goDown={this.decreasePriority}
+                            />
+                            )}
+                        </TaskTable>
+                    </div>
+                    <div className="container bg-light my-4 p-4 shadow">
+                        {/* Create Task Form Component */}
+                        <TaskForm
                             employees={this.state.employees}
-                            complete={this.archiveTask}
-                            goUp={this.increasePriority}
-                            goDown={this.decreasePriority}
+                            inputHandler={this.inputChangeHandler}
+                            submitHandler={this.submitFormHandler}
                         />
-                        )}
-                    </TaskTable>
-                </div>
-                <div className="container bg-light my-4 p-4 shadow">
-                    {/* Create Task Form Component */}
-                    <TaskForm
-                        employees={this.state.employees}
-                        inputHandler={this.inputChangeHandler}
-                        submitHandler={this.submitFormHandler}
-                    />
+                    </div>
                 </div>
             </div>
         )

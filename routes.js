@@ -56,20 +56,17 @@ module.exports = (app) => {
                 console.log("Error: ", err)
                 res.status(400).end();
             } else {
-                console.log("\n\nSuccess -- Updated Task \n\n", result);
-                res.status(200).end();
+                // console.log("\n\nSuccess -- Updated Task \n\n", result);
+                db.Task.findByIdAndUpdate(req.params.id, { priority: modifiedIndex }, (err, result) => {
+                    if (err) {
+                        console.log("Error: ", err)
+                        res.status(400).end();
+                    } else {
+                        console.log("\n\nSuccess -- Updated Task \n\n", result);
+                        res.status(200).end();
+                    }
+                })
             }
-        }).then(() => {
-            // Then grab the target task by id and change its priority to decrease moving it up in the table
-            db.Task.findByIdAndUpdate(req.params.id, { priority: modifiedIndex }, (err, result) => {
-                if (err) {
-                    console.log("Error: ", err)
-                    res.status(400).end();
-                } else {
-                    console.log("\n\nSuccess -- Updated Task \n\n", result);
-                    res.status(200).end();
-                }
-            })
         })
     })
 
@@ -84,19 +81,17 @@ module.exports = (app) => {
                 console.log("Error: ", err)
                 res.status(400).end();
             } else {
-                console.log("\n\nSuccess -- Updated Task \n\n", result);
-                res.status(200).end();
+                // console.log("\n\nSuccess -- Updated Task \n\n", result);
+                db.Task.findByIdAndUpdate(req.params.id, { priority: modifiedIndex }, (err, result) => {
+                    if (err) {
+                        console.log("Error: ", err)
+                        res.status(400).end();
+                    } else {
+                        console.log("\n\nSuccess -- Updated Task \n\n", result);
+                        res.status(200).end();
+                    }
+                })
             }
-        }).then(() => {
-            db.Task.findByIdAndUpdate(req.params.id, { priority: modifiedIndex }, (err, result) => {
-                if (err) {
-                    console.log("Error: ", err)
-                    res.status(400).end();
-                } else {
-                    console.log("\n\nSuccess -- Updated Task \n\n", result);
-                    res.status(200).end();
-                }
-            })
         })
     })
 

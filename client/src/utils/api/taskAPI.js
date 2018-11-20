@@ -21,7 +21,7 @@ export default {
     },
 
     createNewTask: (data) => {
-        console.log("Sending data", data);
+        // console.log("Sending data", data);
         return axios.post(BASE_URL, data);
     },
 

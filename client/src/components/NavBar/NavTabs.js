@@ -5,7 +5,7 @@ const NavTabs = () => (
     <ul className="navbar-nav mr-auto">
 
         <li className="nav-item">
-            <Link to="/" className="nav-link">About</Link>
+            <Link to="/about" className="nav-link">About</Link>
         </li>
 
         <li className="nav-item">

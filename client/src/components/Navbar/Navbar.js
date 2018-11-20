@@ -1,7 +1,8 @@
 import React from "react";
 import NavTabs from "./NavTabs.js"
+import { Link } from "react-router-dom";
 
-const Navbar = () => (
+const Navbar = (props) => (
   <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow">
     <a className="navbar-brand ml-5">Source1Phones</a>
     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01"
@@ -13,8 +14,8 @@ const Navbar = () => (
       <NavTabs />
 
       <div className="mr-5">
-        <img src="https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1-744x744.jpg" alt="Not-Found.jpg" className="rounded-circle mx-2" style={{width: 50, height: 50}} />
-        <i className="fas fa-bars fa-lg mr-1"></i>
+            <span className="py-2">{localStorage.getItem("username")}</span>
+            <Link to="/" className="btn btn-secondary btn-sm ml-2" onClick={() => {localStorage.setItem("isLoggedIn", "false")}}>LOGOUT</Link>
       </div>
     </div>
   </nav>
