@@ -12,7 +12,7 @@ class Chat extends Component {
             messages: []
         };
 
-        this.socket = io('localhost:3001');
+        this.socket = io(window.location.hostname);
 
         this.socket.on('receiveMessage', function(data){
             addMessage(data);
