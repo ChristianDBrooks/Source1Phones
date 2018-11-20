@@ -6,6 +6,10 @@ const employeeSchema = new Schema({
     type: String,
     required: true
   },
+  password: {
+    type: String,
+    required: true
+  },
   dateEmployed: {
       type: String
   },
