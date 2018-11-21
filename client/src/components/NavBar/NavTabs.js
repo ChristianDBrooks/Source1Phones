@@ -16,6 +16,10 @@ const NavTabs = () => (
             <Link to="/repair" className="nav-link">Repair Guide</Link>
         </li>
 
+        <li className="nav-item">
+            <Link to="/admin" className="nav-link">Admin</Link>
+        </li>
+
     </ul>
 )
 

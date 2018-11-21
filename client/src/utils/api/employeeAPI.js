@@ -8,6 +8,14 @@ export default {
         return axios.get(BASE_URL);
     },
 
+    deleteEmployee: (id) => {
+        return axios.delete(BASE_URL + "/" + id);
+    },
+
+    createEmployee: (newEmployeeData) => {
+        return axios.post(BASE_URL, newEmployeeData);
+    },
+
     getCurrentUser: (employeeID) => {
         return axios.get(BASE_URL + "/user/" + employeeID)
     },
@@ -30,9 +38,5 @@ export default {
 
     validateClient: (id, pass) => {
         return axios.post(BASE_URL + "/validate/" + id, {passwordToCheck: pass});
-    },
-
-    deleteEmployee: (id) => {
-        return axios.delete(BASE_URL + "/" + id);
     }
 }

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const moment = require("moment");
 const Schema = mongoose.Schema;
  
 const employeeSchema = new Schema({
@@ -11,7 +12,8 @@ const employeeSchema = new Schema({
     required: true
   },
   dateEmployed: {
-      type: String
+      type: String,
+      default: moment().format("MM/DD/YY").toString(),
   },
   isOnline: {
     type: Boolean,

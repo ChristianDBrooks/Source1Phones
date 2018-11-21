@@ -5,6 +5,7 @@ import WelcomePage from "./pages/WelcomePage";
 import TaskPage from "./pages/TaskPage";
 import ChatPage from "./pages/ChatPage";
 import RepairPage from "./pages/RepairPage";
+import AdminPage from "./pages/AdminPage";
 
 const App = () => (
   <Router>
@@ -15,6 +16,7 @@ const App = () => (
         <Route exact path="/tasks" component={TaskPage}/>
         <Route exact path="/chat" component={ChatPage}/>
         <Route exact path="/repair" component={RepairPage}/>
+        <Route exact path="/admin" component={AdminPage}/>
       </div>
     </div>
   </Router>
