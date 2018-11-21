@@ -5,10 +5,6 @@ const NavTabs = () => (
     <ul className="navbar-nav mr-auto">
 
         <li className="nav-item">
-            <Link to="/about" className="nav-link">About</Link>
-        </li>
-
-        <li className="nav-item">
             <Link to="/tasks" className="nav-link">Task List</Link>
         </li>
 

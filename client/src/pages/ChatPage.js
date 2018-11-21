@@ -61,7 +61,7 @@ class Chat extends Component {
     }
     render() {
         return (
-            <div>
+            <div style={{ backgroundImage: "url(./images/chat-bg.jpeg)", backgroundSize: "cover", height: "100vh", backgroundPosition: "center"}}>
                 <NavBar />
                 <div className="container bg-light mt-4 p-4 shadow">
 

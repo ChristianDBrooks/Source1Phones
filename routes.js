@@ -209,7 +209,8 @@ module.exports = (app) => {
     app.post("/api/employee", (req, res) => {
         db.Employee.create({
             employeeName: req.body.employee,
-            dateEmployed: moment().format("MM/DD/YY").toString()
+            dateEmployed: moment().format("MM/DD/YY").toString(),
+            password: req.body.password
         }, function (err, newEmployee) {
             if (err) {
                 console.log("Error: ", err);

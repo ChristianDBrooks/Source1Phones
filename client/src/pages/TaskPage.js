@@ -120,7 +120,8 @@ class Task extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{ backgroundImage: "url(./images/tasks-bg.jpeg)", backgroundSize: "cover", height: "100vh", backgroundPosition: "center"}}>
+
 
                 <NavBar />
                 <div>
