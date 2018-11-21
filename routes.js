@@ -165,6 +165,18 @@ module.exports = (app) => {
         })
     })
 
+    // Route 7
+    // Get all users inside users collection.
+    app.get("/api/employee/user/:id", (req, res) => {
+        db.Employee.findById(req.params.id, (err, result) => {
+            if (err) {
+                console.log("Error: ", err)
+                res.status(400).end();
+            }
+            console.log("\n\nSuccess -- Found Current User\n\n", result);
+            res.json(result);
+        })
+    })
 
     // Route 8
     // Get all users online inside users collection.

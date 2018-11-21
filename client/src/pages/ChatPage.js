@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import NavBar from "../components/NavBar/Nav.js";
 import io from "socket.io-client";
 import moment from "moment";
+import employeeAPI from "../utils/api/employeeAPI"
 
 class Chat extends Component {
     constructor(props) {
@@ -9,21 +10,41 @@ class Chat extends Component {
 
         this.state = {
             message: '',
+            currentUsername: '',
             messages: [],
-            users: []
+            onlineUsers: []
         };
 
         // ONDEPLOY NEEDS TO BE window.location.hostname
-        this.socket = io('localhost:3001');
+        this.socket = io(window.location.hostname);
+
+        this.componentDidMount = () => {
+            this.loadEmployeesOnline()
+            this.loadCurrentUser()
+        }
 
         this.socket.on('receiveMessage', function (data) {
             addMessage(data);
         });
 
+        this.loadEmployeesOnline = () => {
+            employeeAPI.getOnlineEmployees()
+                .then((response) => {
+                    this.setState({onlineUsers: response.data})
+                })
+        }
+
+        this.loadCurrentUser = () => {
+            const currentID = sessionStorage.getItem("currentUserID");
+            employeeAPI.getCurrentUser(currentID)
+            .then(response => {
+                console.log(response.data);
+                this.setState({currentUsername: response.data.employeeName})
+            })
+        }
+
         const addMessage = data => {
-            console.log(data);
             this.setState({ messages: [...this.state.messages, data] });
-            console.log(this.state.messages);
             const element = document.getElementById("chat-log");
             element.scrollTop = element.scrollHeight;
         };
@@ -31,7 +52,7 @@ class Chat extends Component {
         this.sendMessage = event => {
             event.preventDefault();
             this.socket.emit('sendMessage', {
-                author: localStorage.getItem("username"),
+                author: this.state.currentUsername,
                 message: this.state.message,
                 timestamp: moment().format("h:mm A")
             })
@@ -50,12 +71,12 @@ class Chat extends Component {
 
                     <div className="row no-gutters">
 
-                        <div className="col-8 pr-3">
+                        <div className="col-10 pr-3">
                             <div className="container bg-dark px-0" id="chatbox">
-                                <div className="p-3 mb-3" style={{ height: "250px", overflowY: "scroll",  overflowX: "hidden"}} id="chat-log">
-                                    
+                                <div className="p-3 mb-3" style={{ height: "250px", overflowY: "scroll", overflowX: "hidden" }} id="chat-log">
+
                                     {/* NEW STYLE */}
-                                    {this.state.messages.map( (message, index) => {
+                                    {this.state.messages.map((message, index) => {
                                         return (
                                             <div key={index} className="row">
                                                 <div className="col-md-12">
@@ -69,7 +90,7 @@ class Chat extends Component {
                                                     </div>
                                                     <div className="row">
                                                         <div className="col-12 text-left">
-                                                            <p className="bg-primary py-1 px-2 mb-2" style={{borderRadius: 10}}>
+                                                            <p className="bg-primary py-1 px-2 mb-2" style={{ borderRadius: 10 }}>
                                                                 {message.message}
                                                             </p>
                                                         </div>
@@ -92,8 +113,18 @@ class Chat extends Component {
                             </form>
                         </div>
 
-                        <div className="col-4 px-3" style={{backgroundColor: "#f2f2f2"}}>
-
+                        <div className="col-2 px-3" style={{ backgroundColor: "#f2f2f2" }}>
+                            <div className="pt-3">
+                                <h6>Online Users</h6>
+                                <hr />
+                                <div>
+                                    {this.state.onlineUsers.map(employee => {
+                                        return (
+                                            <div key={employee._id} className="text-primary">{employee.employeeName}</div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

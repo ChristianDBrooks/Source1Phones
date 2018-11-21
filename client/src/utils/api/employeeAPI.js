@@ -8,6 +8,10 @@ export default {
         return axios.get(BASE_URL);
     },
 
+    getCurrentUser: (employeeID) => {
+        return axios.get(BASE_URL + "/user/" + employeeID)
+    },
+
     changeEmployeeOnlineStatus: (employeeID, status) => {
         return axios.put(BASE_URL + "/status/" + employeeID, {status: status})
     },
