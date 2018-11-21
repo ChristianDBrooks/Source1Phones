@@ -7,7 +7,8 @@ const path = require("path");
 const PORT = process.env.PORT || 3001;
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-mongoose.connect("mongodb://localhost/phoneStoreDB");
+const databaseURL = process.env.MONGOLAB_URI || "mongodb://localhost/phoneStoreDB";
+mongoose.connect(databaseURL);
 
 // Middleware
 app.use(bodyParser.json());
