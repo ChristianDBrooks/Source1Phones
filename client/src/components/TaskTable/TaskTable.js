@@ -1,7 +1,7 @@
 import React from "react";
 
 const TaskTable = props => (
-<table className="table">
+<table className="table table-sm">
   <thead className="text-center">
     <tr className="bg-dark">
         <th scope="col">No.</th>

@@ -27,15 +27,15 @@ class Task extends Component {
     // Form Methods
 
     inputChangeHandler = event => {
-        const {name, value} = event.target;
+        const { name, value } = event.target;
         this.setState({ [name]: value });
         console.log("Changes occuring to ", name);
     }
-    
+
     inputChangeUpdater = event => {
         const taskID = event.target.id;
         const assignedEmployee = event.target.value
-        taskAPI.updateEmployee(taskID, {employee: assignedEmployee}).then(() => {
+        taskAPI.updateEmployee(taskID, { employee: assignedEmployee }).then(() => {
             this.getTasks();
         })
     }
@@ -89,9 +89,9 @@ class Task extends Component {
         }
         console.log("Going Up");
         taskAPI.increasePriorityByOne(id, currentPriority)
-        .then(() => {
-            this.getTasks();
-        });
+            .then(() => {
+                this.getTasks();
+            });
     }
 
     decreasePriority = (id, currentPriority) => {
@@ -101,9 +101,9 @@ class Task extends Component {
         }
         console.log("Going Down");
         taskAPI.decreasePriorityByOne(id, currentPriority)
-        .then(() => {
-            this.getTasks();
-        });
+            .then(() => {
+                this.getTasks();
+            });
     }
 
     // Employee Methods
@@ -120,7 +120,7 @@ class Task extends Component {
 
     render() {
         return (
-            <div style={{ backgroundImage: "url(./images/tasks-bg.jpeg)", backgroundSize: "cover", height: "100vh", backgroundPosition: "center"}}>
+            <div style={{ backgroundImage: "url(./images/tasks-bg.jpeg)", backgroundSize: "cover", height: "100vh", backgroundPosition: "center" }}>
 
 
                 <NavBar />
@@ -129,25 +129,27 @@ class Task extends Component {
                         <h1>Daily Tasks</h1>
                         <hr className="bg-light" />
                         {/* Display Table Container Component*/}
-                        <TaskTable>
-                            {this.state.tasks.map( (task, index) => 
-                            <TaskTableRow
-                                id={task._id}
-                                priority={(index + 1)}
-                                inputUpdater={this.inputChangeUpdater}
-                                name={task.customerName}
-                                device={task.device}
-                                repair={task.repair}
-                                time={task.timeIn}
-                                employee={task.employee}
-                                key={task.priority}
-                                employees={this.state.employees}
-                                complete={this.archiveTask}
-                                goUp={this.increasePriority}
-                                goDown={this.decreasePriority}
-                            />
-                            )}
-                        </TaskTable>
+                        <div className="table-responsive-md">
+                            <TaskTable>
+                                {this.state.tasks.map((task, index) =>
+                                    <TaskTableRow
+                                        id={task._id}
+                                        priority={(index + 1)}
+                                        inputUpdater={this.inputChangeUpdater}
+                                        name={task.customerName}
+                                        device={task.device}
+                                        repair={task.repair}
+                                        time={task.timeIn}
+                                        employee={task.employee}
+                                        key={task.priority}
+                                        employees={this.state.employees}
+                                        complete={this.archiveTask}
+                                        goUp={this.increasePriority}
+                                        goDown={this.decreasePriority}
+                                    />
+                                )}
+                            </TaskTable>
+                        </div>
                     </div>
                     <div className="container bg-light my-4 p-4 shadow">
                         {/* Create Task Form Component */}

@@ -23,8 +23,8 @@ class WelcomePage extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="row" style={{height: "50vh", marginTop: "20vh"}}>
-                        <div className="col col-lg-6 text-center">
+                    <div className="row my-5 pt-3 pb-4">
+                        <div className="col col-lg-6 pb-3 text-center">
                             <h4>Customer Sign In</h4>
                             <div className="px-3">
                                 <button className="btn btn-lg btn-block btn-primary mt-3">COMING SOON</button>
