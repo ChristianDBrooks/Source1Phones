@@ -225,8 +225,8 @@ module.exports = (app) => {
     // Validate current users password.
     app.post("/api/employee/validate/:id", (req, res) => {
         console.log(req.body);
+        console.log(req.params.id)
         db.Employee.findById(req.params.id, (err, result) => {
-            console.log("\n\nPassword in DB: " + result.password + "\nPassword given: " + req.body.passwordToCheck);
             if (err) {
                 console.log("Error: ", err)
                 res.status(400).end();

@@ -3,6 +3,8 @@ import NavBar from "../components/NavBar/Nav.js";
 import io from "socket.io-client";
 import moment from "moment";
 import employeeAPI from "../utils/api/employeeAPI"
+// const socketURL = 'localhost:3001';
+const socketURL = window.location.hostname;
 
 class Chat extends Component {
     constructor(props) {
@@ -16,7 +18,7 @@ class Chat extends Component {
         };
 
         // ONDEPLOY NEEDS TO BE window.location.hostname
-        this.socket = io(window.location.hostname);
+        this.socket = io(socketURL);
 
         this.componentDidMount = () => {
             this.loadEmployeesOnline()

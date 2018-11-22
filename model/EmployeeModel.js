@@ -5,10 +5,12 @@ const Schema = mongoose.Schema;
 const employeeSchema = new Schema({
   employeeName: {
     type: String,
+    trim: true,
     required: true
   },
   password: {
     type: String,
+    trime: true,
     required: true
   },
   dateEmployed: {
