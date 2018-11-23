@@ -55,6 +55,7 @@ class LoginPage extends Component {
                         .then(() => {
                             console.log("Setting session storage variables.")
                             sessionStorage.setItem("currentUserID", this.state.selectedEmployee.id)
+                            sessionStorage.setItem("currentEmployee", this.state.selectedEmployee.employeeName)
                             // Redirect to home page.
                             this.setState({ redirect: true })
                         })

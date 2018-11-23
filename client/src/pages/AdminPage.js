@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import employeeAPI from "../utils/api/employeeAPI";
 import NavBar from "../components/NavBar/Nav.js";
-import CreateEmployeeForm from "../components/CreateEmployeeForm/CreateEmployeeForm"
+import EmployeeForm from "../components/EmployeeForm/Form.js"
 
 class AdminPage extends Component {
     state = {
@@ -66,7 +66,7 @@ class AdminPage extends Component {
                     </div>
                     <div className="container bg-light my-4 p-4 shadow">
                         {/* Create Task Form Component */}
-                        <CreateEmployeeForm
+                        <EmployeeForm
                             inputHandler={this.inputChangeHandler}
                             submitHandler={this.submitFormHandler}
                         />

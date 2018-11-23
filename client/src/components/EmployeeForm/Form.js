@@ -1,6 +1,6 @@
 import React from "react";
 
-const CreateEmployeeForm = props => (
+const CreateEmployee = props => (
   <form>
     <fieldset>
       <legend>New Employee</legend>
@@ -26,4 +26,4 @@ const CreateEmployeeForm = props => (
   </form >
 );
 
-export default CreateEmployeeForm;
+export default CreateEmployee;

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import taskAPI from "../utils/api/taskAPI";
 import employeeAPI from "../utils/api/employeeAPI";
-import TaskForm from "../components/TaskForm/TaskForm.js";
-import TaskTable from "../components/TaskTable/TaskTable.js";
-import TaskTableRow from "../components/TaskTableRow/TaskTableRow.js";
+import TaskForm from "../components/TaskForm/Form.js";
+import TaskTable from "../components/TaskTable/Table.js";
+import TaskTableRow from "../components/TaskTableRow/TableRow.js";
 import NavBar from "../components/NavBar/Nav.js";
 
 class Task extends Component {
