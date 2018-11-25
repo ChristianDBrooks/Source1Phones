@@ -12,9 +12,9 @@ const NavTabs = () => (
             <Link to="/chat" className="nav-link">Team Chat</Link>
         </li>
 
-        <li className="nav-item">
+        {/* <li className="nav-item">
             <Link to="/repair" className="nav-link">Repair Guide</Link>
-        </li>
+        </li> */}
 
         <li className="nav-item">
             <Link to="/orders" className="nav-link">Orders</Link>
