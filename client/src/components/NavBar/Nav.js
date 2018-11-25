@@ -20,7 +20,7 @@ class Nav extends Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark shadow" style={{ backgroundColor: "rgba(0, 0, 0, 0.75)" }}>
         <button onClick={this.logoutUser}>
-          <Link to="/welcome" className="navbar-brand ml-5">Source1Phones</Link>
+          <Link to="/" className="navbar-brand ml-5">Source1Phones</Link>
         </button>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01"
           aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,7 @@ class Nav extends Component {
           <div className="mr-5">
             <span className="py-2">{localStorage.getItem("username")}</span>
             <button className="btn btn-secondary btn-sm ml-2" onClick={this.logoutUser}>
-              <Link to="/welcome" >LOGOUT</Link>
+              <Link to="/" >LOGOUT</Link>
             </button>
           </div>
         </div>
