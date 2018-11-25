@@ -31,7 +31,7 @@ class Nav extends Component {
           <NavTabs />
 
           <div className="mr-5">
-            <span className="py-2">{localStorage.getItem("username")}</span>
+            <span className="py-2">{sessionStorage.getItem("currentEmployee")}</span>
             <button className="btn btn-secondary btn-sm ml-2" onClick={this.logoutUser}>
               <Link to="/" >LOGOUT</Link>
             </button>

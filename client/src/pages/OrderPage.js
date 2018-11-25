@@ -75,6 +75,7 @@ class OrderPage extends Component {
     deleteOrder = (orderID) => {
         orderAPI.deleteOrder(orderID)
             .then(() => this.loadUnfulfilledOrders())
+            .then(() => this.loadUpdatedFulfilledOrders())
     }
 
     render() {
@@ -112,7 +113,7 @@ class OrderPage extends Component {
                                     partName={order.partName}
                                     status={order.status}
                                     deliveryDate={deliveryDate}
-                                    complete={this.completeOrder}
+                                    delete={this.deleteOrder}
                                 />
                             )
                         }

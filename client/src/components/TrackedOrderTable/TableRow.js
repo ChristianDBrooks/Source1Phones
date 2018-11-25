@@ -7,7 +7,7 @@ const OrderTableRow = props => (
         <td>{props.status}</td>
         <td>{props.deliveryDate}</td>
         <td>
-            <button type="button" className="bg-transparent border-0" onClick={() => props.complete(props.id)} aria-label="Close">
+            <button type="button" className="bg-transparent border-0" onClick={() => props.delete(props.id)} aria-label="Close">
                 <span className="text-secondary" aria-hidden="true"><i className="fas fa-times"></i></span>
             </button>
         </td>

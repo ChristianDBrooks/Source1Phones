@@ -80,6 +80,12 @@ class AdminPage extends Component {
         })
     }
 
+    deleteOrder = (orderID) => {
+        orderAPI.deleteOrder(orderID)
+            .then(() => this.loadUnfulfilledOrders())
+            .then(() => this.loadUpdatedFulfilledOrders())
+    }
+
     fulfillOrder = (id) => {
         orderAPI.fulfillOrder(id, {
             tracking: this.state.trackingNumber,
@@ -87,7 +93,7 @@ class AdminPage extends Component {
         })
             .then(() => {
                 this.loadUnfulfilledOrders();
-                this.loadFulfilledOrders();
+                this.loadUpdatedFulfilledOrders();
             })
     }
 
@@ -156,7 +162,7 @@ class AdminPage extends Component {
                                             partName={order.partName}
                                             status={order.status}
                                             deliveryDate={deliveryDate}
-                                            complete={this.completeOrder}
+                                            delete={this.deleteOrder}
                                         />
                                     )
                                 }

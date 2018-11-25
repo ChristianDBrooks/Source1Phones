@@ -17,13 +17,13 @@ const WelcomePage = () => (
         </div>
         <div className="row my-5 pt-3 pb-4">
             <div className="col col-lg-6 pb-3 text-center">
-                <h4>Customer Sign In</h4>
+                <h4 className="text-light">Customer Sign In</h4>
                 <div className="px-3">
                     <button className="btn btn-lg btn-block btn-secondary mt-3" disabled>COMING SOON</button>
                 </div>
             </div>
             <div className="col col-lg-6 text-center">
-                <h4>Employee Sign In</h4>
+                <h4 className="text-light">Employee Sign In</h4>
                 <div className="px-3">
                     <Link to="/login">
                         <button className="btn btn-lg btn-block btn-secondary mt-3">LOGIN</button>
