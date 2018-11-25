@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const moment = require("moment");
 const Schema = mongoose.Schema;
  
 const orderSchema = new Schema({
@@ -17,17 +18,28 @@ const orderSchema = new Schema({
     type: String,
     required: true
   },
-  timeIn: {
-    type: String
+  createdAt: {
+    type: String,
+    default: moment().format("MM/DD/YY")
   },
   employee: {
     type: String
   },
+  isFulfilled: {
+    type: Boolean,
+    default: false
+  },
+  carrierCode: {
+    type: String,
+    default: "N/A"
+  },
   trackingNumber: {
-    type: String
+    type: String,
+    default: "N/A"
   },
   estimatedDelivery: {
-    type: String
+    type: String,
+    default: "N/A"
   },
   status: {
     type: String

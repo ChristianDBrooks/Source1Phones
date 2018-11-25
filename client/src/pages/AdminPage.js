@@ -1,13 +1,22 @@
 import React, { Component } from "react";
 import employeeAPI from "../utils/api/employeeAPI";
+import orderAPI from "../utils/api/orderAPI";
 import NavBar from "../components/NavBar/Nav.js";
 import EmployeeForm from "../components/EmployeeForm/Form.js"
+import AdminOrderTable from "../components/AdminOrderTable/Table.js";
+import AdminOrderTableRow from "../components/AdminOrderTable/TableRow.js";
+import TrackedOrderTable from "../components/TrackedOrderTable/Table.js";
+import TrackedOrderTableRow from "../components/TrackedOrderTable/TableRow.js";
 
 class AdminPage extends Component {
     state = {
         allEmployees: [],
         name: "",
         password: "",
+        requestedOrders: [],
+        fulfilledOrders: [],
+        trackingNumber: "",
+        selectedCarrier: "",
     }
 
     // Do these on start
@@ -15,15 +24,18 @@ class AdminPage extends Component {
     componentDidMount() {
         // Get archived tasks.
         // Get Logged in Users
+        this.loadUnfulfilledOrders();
+        this.loadFulfilledOrders();
         this.loadAllEmployees();
     }
 
     // Form Methods
 
     inputChangeHandler = event => {
-        const {name, value} = event.target;
+        const { name, value } = event.target;
         this.setState({ [name]: value });
         console.log("Changes occuring to ", name);
+        console.log(value);
     }
 
     submitFormHandler = (event) => {
@@ -39,18 +51,45 @@ class AdminPage extends Component {
         })
     }
 
-    // Task Methods
+    // Employee Methods
 
-    loadAllEmployees() {
+    loadAllEmployees = () => {
         employeeAPI.getAllEmployees()
-        .then((results) => {
-            this.setState({allEmployees: results.data});
+            .then((results) => {
+                this.setState({ allEmployees: results.data });
+            })
+    }
+
+    //Order Methods
+
+    loadUnfulfilledOrders = () => {
+        orderAPI.getUnfulfilledOrders()
+            .then((results) => {
+                this.setState({ requestedOrders: results.data });
+            })
+    }
+
+    loadFulfilledOrders = () => {
+        orderAPI.getFulfilledOrders()
+            .then((results) => {
+                this.setState({ fulfilledOrders: results.data });
+            })
+    }
+
+    fulfillOrder = (id) => {
+        orderAPI.fulfillOrder(id, {
+            tracking: this.state.trackingNumber,
+            carrier: this.state.selectedCarrier
         })
+            .then(() => {
+                this.loadUnfulfilledOrders();
+                this.loadFulfilledOrders();
+            })
     }
 
     render() {
         return (
-            <div style={{ backgroundImage: "url(./images/tasks-bg.jpeg)", backgroundSize: "cover", height: "100vh", backgroundPosition: "center"}}>
+            <div style={{ backgroundImage: "url(./images/tasks-bg.jpeg)", backgroundSize: "cover", height: "100vh", backgroundPosition: "center" }}>
                 <NavBar />
                 <div>
                     <div className="container bg-light mt-4 p-4 shadow">
@@ -58,6 +97,7 @@ class AdminPage extends Component {
                         <hr className="bg-light" />
                     </div>
                     <div className="container bg-light mt-4 p-4 shadow">
+                        <legend>Employee List</legend>
                         <ul className="list-group">
                             {this.state.allEmployees.map(employee => {
                                 return (<li className="list-group-item" key={employee._id}>{employee.employeeName}</li>);
@@ -70,6 +110,48 @@ class AdminPage extends Component {
                             inputHandler={this.inputChangeHandler}
                             submitHandler={this.submitFormHandler}
                         />
+                    </div>
+                    <div className="container bg-light my-4 p-4 shadow">
+                        <legend>Order Requests</legend>
+                        <div className="table-responsive-md">
+                            <AdminOrderTable>
+                                {this.state.requestedOrders.map((order, index) =>
+                                    <AdminOrderTableRow
+                                        key={order._id}
+                                        id={order._id}
+                                        customerName={order.customerName}
+                                        partName={order.partName}
+                                        partLink={order.partLink}
+                                        employee={order.employee}
+                                        inputHandler={this.inputChangeHandler}
+                                        completeHandler={this.fulfillOrder}
+                                    />
+                                )}
+                            </AdminOrderTable>
+                        </div>
+                        <legend>Tracked Orders</legend>
+                        <div className="table-responsive-md">
+                            <TrackedOrderTable>                        
+                                {this.state.fulfilledOrders.map((order, index) => {
+                                    let deliveryDate = "N/A";
+                                    if (order.estimatedDelivery !== null) {
+                                        deliveryDate = order.estimatedDelivery
+                                    }
+                                    return (
+                                        <TrackedOrderTableRow
+                                            key={order._id}
+                                            id={order._id}
+                                            customerName={order.customerName}
+                                            partName={order.partName}
+                                            status={order.status}
+                                            deliveryDate={deliveryDate}
+                                            complete={this.completeOrder}
+                                        />
+                                    )
+                                }
+                                )}
+                            </TrackedOrderTable>
+                        </div>
                     </div>
                 </div>
             </div>

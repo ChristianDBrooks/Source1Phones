@@ -12,7 +12,7 @@ const App = () => (
   <Router>
     <div>
       <div>
-        <Route exaxt path="/" component={WelcomePage}/>
+        <Route exaxt path="/welcome" component={WelcomePage}/>
         <Route exact path="/login" component={LoginPage}/>
         <Route exact path="/tasks" component={TaskPage}/>
         <Route exact path="/chat" component={ChatPage}/>

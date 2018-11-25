@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar/Nav.js";
 import io from "socket.io-client";
 import moment from "moment";
 import employeeAPI from "../utils/api/employeeAPI"
+// ON FINAL DELETE
 // const socketURL = 'localhost:3001';
 const socketURL = window.location.hostname;
 
@@ -17,7 +18,7 @@ class Chat extends Component {
             onlineUsers: []
         };
 
-        // ONDEPLOY NEEDS TO BE window.location.hostname
+        // ONDEPLOY NEEDS TO BE socketURl
         this.socket = io(socketURL);
 
         this.componentDidMount = () => {

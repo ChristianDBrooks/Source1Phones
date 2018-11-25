@@ -8,13 +8,25 @@ export default {
         return axios.get(BASE_URL);
     },
 
+    getUnfulfilledOrders: () => {
+        return axios.get(BASE_URL + "/unfulfilled")
+    },
+
+    updateOrders: () => {
+        return axios.get(BASE_URL + "/update")
+    },
+
+    getFulfilledOrders: () => {
+        return axios.get(BASE_URL + "/fulfilled")
+    },
+
     createOrder: (data) => {
         // console.log("Sending data", data);
         return axios.post(BASE_URL, data);
     },
 
-    fulfillOrder: (id, orders) => {
-        return axios.put(BASE_URL + "/fulfill/" + id, {orders});
+    fulfillOrder: (id, trackingData) => {
+        return axios.put(BASE_URL + "/fulfill/" + id, trackingData);
     },
 
     deleteOrder: (id) => {

@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import orderAPI from "../utils/api/orderAPI.js";
 import OrderForm from "../components/OrderForm/Form"
 import NavBar from "../components/NavBar/Nav.js";
-import OrderTable from "../components/OrderTable/Table.js";
-import OrderTableRow from "../components/OrderTableRow/TableRow.js";
+import RequestedOrderTable from "../components/RequestedOrderTable/Table.js";
+import RequestedOrderTableRow from "../components/RequestedOrderTable/TableRow.js";
+import TrackedOrderTable from "../components/TrackedOrderTable/Table.js";
+import TrackedOrderTableRow from "../components/TrackedOrderTable/TableRow.js";
 
 class OrderPage extends Component {
     state = {
-        orders: [],
+        unfulfilledOrders: [],
+        fulfilledOrders: [],
         customerName: '',
         partName: '',
         partLink: '',
@@ -20,7 +23,8 @@ class OrderPage extends Component {
     componentDidMount() {
         // Get archived tasks.
         // Get Logged in Users
-        this.loadAllOrders();
+        this.loadUnfulfilledOrders();
+        this.loadUpdatedFulfilledOrders();
     }
 
     // Form Methods
@@ -38,26 +42,39 @@ class OrderPage extends Component {
             customerName: this.state.customerName,
             partName: this.state.partName,
             partLink: this.state.partLink,
-            orderMemo: this.state.orderMemo
+            orderMemo: this.state.orderMemo,
+            employee: sessionStorage.getItem("currentEmployee")
         }
         console.log("Compiled Data to be sent...\n\n", compiledData);
         orderAPI.createOrder(compiledData).then(() => {
-            this.loadAllOrders();
+            this.loadUnfulfilledOrders();
         })
     }
 
-    // Task Methods
+    // Order Methods
 
-    loadAllOrders = () => {
-        orderAPI.getAllOrders()
+    loadUnfulfilledOrders = () => {
+        orderAPI.getUnfulfilledOrders()
             .then((results) => {
-                this.setState({ orders: results.data });
+                this.setState({ unfulfilledOrders: results.data });
             })
     }
 
+    loadUpdatedFulfilledOrders = () => {
+        orderAPI.updateOrders()
+        .then(() => {
+            orderAPI.getFulfilledOrders()
+                .then((results) => {
+                    this.setState({ fulfilledOrders: results.data });
+                    console.log(this.state.fulfilledOrders);
+                })
+        })
+    }
+
+
     deleteOrder = (orderID) => {
         orderAPI.deleteOrder(orderID)
-        .then(() => this.loadAllOrders())
+            .then(() => this.loadUnfulfilledOrders())
     }
 
     render() {
@@ -68,21 +85,39 @@ class OrderPage extends Component {
                     <div className="container bg-light mt-4 p-4 shadow">
                         <h1>Orders</h1>
                         <hr className="bg-light" />
-                    </div>
-                    <div className="container bg-light mt-4 p-4 shadow">
-                        <OrderTable>
-                            {this.state.orders.map((order, index) =>
-                                <OrderTableRow
+                        <legend>Order Requests</legend>
+                        <RequestedOrderTable>
+                            {this.state.unfulfilledOrders.map((order, index) =>
+                                <RequestedOrderTableRow
                                     key={order._id}
                                     id={order._id}
                                     customerName={order.customerName}
                                     partName={order.partName}
-                                    status={order.status}
-                                    deliveryDate={order.estimatedDelivery}
                                     delete={this.deleteOrder}
                                 />
                             )}
-                        </OrderTable>
+                        </RequestedOrderTable>
+                        <legend>Fulfilled</legend>
+                        <TrackedOrderTable>
+                            {this.state.fulfilledOrders.map((order, index) => {
+                                let deliveryDate = "N/A";
+                                if (order.estimatedDelivery !== null) {
+                                    deliveryDate = order.estimatedDelivery
+                                }
+                                return (
+                                    <TrackedOrderTableRow
+                                        key={order._id}
+                                        id={order._id}
+                                        customerName={order.customerName}
+                                        partName={order.partName}
+                                        status={order.status}
+                                        deliveryDate={deliveryDate}
+                                        complete={this.completeOrder}
+                                    />
+                                )
+                            }
+                            )}
+                        </TrackedOrderTable>
                     </div>
                 </div>
                 <div className="container bg-light my-4 p-4 shadow">
