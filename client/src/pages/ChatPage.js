@@ -66,11 +66,12 @@ class Chat extends Component {
         return (
             <div style={{ backgroundImage: "url(./images/chat-bg.jpeg)", backgroundSize: "cover", height: "100vh", backgroundPosition: "center"}}>
                 <NavBar />
+                <div className="container bg-light mt-4 p-3 shadow">
+
+                    <h4 className="m-0">Chat</h4>
+                </div>
                 <div className="container bg-light mt-4 p-4 shadow">
 
-                    <h1>Chat</h1>
-
-                    <hr className="bg-light" />
 
                     <div className="row no-gutters">
 

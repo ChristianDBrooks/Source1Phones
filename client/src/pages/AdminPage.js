@@ -26,6 +26,7 @@ class AdminPage extends Component {
         // Get Logged in Users
         this.loadUnfulfilledOrders();
         this.loadUpdatedFulfilledOrders();
+        this.loadAllEmployees();
     }
 
     // Form Methods
@@ -95,13 +96,14 @@ class AdminPage extends Component {
             <div style={{ background: "linear-gradient(transparent, rgba(26,26,26,.0), rgba(26,26,26,1)), url(./images/admin-bg.jpeg)", backgroundSize: "cover", height: "100vh", backgroundPosition: "center" }}>
                 <NavBar />
                 <div>
-                    <div className="container bg-light mt-4 p-4 shadow">
-                        <h4>Admin Page</h4>
-                        <hr className="bg-light" />
+                    <div className="container bg-light mt-4 p-3 shadow">
+                        <h4 className="m-0">Admin Page</h4>
                     </div>
                     <div className="container bg-light my-4 p-4 shadow">
                         <div className="row">
                             <div className="col col-md-6">
+                            <legend>New Employee</legend>
+                            <hr className="bg-light" />
                                 <EmployeeForm
                                     inputHandler={this.inputChangeHandler}
                                     submitHandler={this.submitFormHandler}
@@ -109,6 +111,7 @@ class AdminPage extends Component {
                             </div>
                             <div className="col col-md-6">
                                 <legend>Employee List</legend>
+                                <hr className="bg-light" />
                                 <ul className="list-group">
                                     {this.state.allEmployees.map(employee => {
                                         return (<li className="list-group-item" key={employee._id}>{employee.employeeName}</li>);
@@ -119,6 +122,7 @@ class AdminPage extends Component {
                     </div>
                     <div className="container bg-light my-4 p-4 shadow">
                         <legend>Order Requests</legend>
+                        <hr className="bg-light" />
                         <div className="table-responsive-md">
                             <AdminOrderTable>
                                 {this.state.requestedOrders.map((order, index) =>
@@ -136,6 +140,7 @@ class AdminPage extends Component {
                             </AdminOrderTable>
                         </div>
                         <legend>Tracked Orders</legend>
+                        <hr className="bg-light" />
                         <div className="table-responsive-md">
                             <TrackedOrderTable>                        
                                 {this.state.fulfilledOrders.map((order, index) => {

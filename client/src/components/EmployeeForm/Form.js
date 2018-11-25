@@ -3,7 +3,6 @@ import React from "react";
 const CreateEmployee = props => (
   <form>
     <fieldset>
-      <legend>New Employee</legend>
       {/* Customer Name */}
       <div className="form-row">
         <div className="col-md-12">
@@ -14,8 +13,8 @@ const CreateEmployee = props => (
         </div>
         <div className="col-md-12">
           <div className="form-group">
-            <label htmlFor="deviceName">Account Password</label>
-            <input type="text" className="form-control form-control-md" id="deviceName" placeholder="Device brand and model..." onChange={props.inputHandler} name="password" />
+            <label htmlFor="employeePassword">Account Password</label>
+            <input type="text" className="form-control form-control-md" id="employeePassword" placeholder="Employee password..." onChange={props.inputHandler} name="password" />
           </div>
         </div>
         <div className="col-md-12">

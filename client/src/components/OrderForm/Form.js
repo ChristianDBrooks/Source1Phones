@@ -4,6 +4,7 @@ const CreateRequest = props => (
   <form>
     <fieldset>
       <legend>New Order</legend>
+      <hr className="bg-light" />
       {/* Customer Name */}
       <div className="form-row">
         <div className="col-md-3">

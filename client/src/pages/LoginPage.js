@@ -8,14 +8,14 @@ class LoginPage extends Component {
     // Set a state with a variable called 'count'.
     // STATE HERE <=====
     state = {
-        offlineEmployees: [],
+        allEmployees: [],
         selectedEmployee: {},
         enteredPassword: "",
         redirect: false,
     };
 
     componentDidMount() {
-        this.employeesNotLoggedIn();
+        this.loadAllEmployees();
     }
 
     // Create a state handler that focuses on 'count' and then change the count +1 or -1
@@ -44,7 +44,7 @@ class LoginPage extends Component {
         event.preventDefault();
         // Check if entered password is valid.
         console.log(`Checking if the password ${this.state.enteredPassword} matches database password for employee ${this.state.selectedEmployee.name}`)
-        employeeAPI.validateClient(this.state.selectedEmployee.id, this.state.enteredPassword.toString())
+        employeeAPI.validateClient(this.state.selectedEmployee.id, this.state.enteredPassword)
             .then((response) => {
                 console.log("The response was ", response);
                 if (!response.data.validated) {
@@ -63,11 +63,11 @@ class LoginPage extends Component {
             })
     }
 
-    employeesNotLoggedIn = () => {
-        employeeAPI.getOfflineEmployees()
+    loadAllEmployees = () => {
+        employeeAPI.getAllEmployees()
             .then((results) => {
                 results.data.forEach(employee => {
-                    this.setState({ offlineEmployees: [...this.state.offlineEmployees, employee] })
+                    this.setState({ allEmployees: [...this.state.allEmployees, employee] })
                 })
             })
     }
@@ -101,7 +101,7 @@ class LoginPage extends Component {
                                                 <label htmlFor="selectedEmployee">Employee</label>
                                                 <select className="form-control form-control-sm mb-3" name="selectedEmployee" onChange={this.employeeUpdater}>
                                                     <option>Please select an employee...</option>
-                                                    {this.state.offlineEmployees.map(employee => {
+                                                    {this.state.allEmployees.map(employee => {
                                                         return (<option key={employee._id} id={employee._id}>{employee.employeeName}</option>)
                                                     })   
                                                     }

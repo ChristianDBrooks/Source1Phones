@@ -62,13 +62,13 @@ class OrderPage extends Component {
 
     loadUpdatedFulfilledOrders = () => {
         orderAPI.updateOrders()
-        .then(() => {
-            orderAPI.getFulfilledOrders()
-                .then((results) => {
-                    this.setState({ fulfilledOrders: results.data });
-                    console.log(this.state.fulfilledOrders);
-                })
-        })
+            .then(() => {
+                orderAPI.getFulfilledOrders()
+                    .then((results) => {
+                        this.setState({ fulfilledOrders: results.data });
+                        console.log(this.state.fulfilledOrders);
+                    })
+            })
     }
 
 
@@ -81,45 +81,45 @@ class OrderPage extends Component {
         return (
             <div style={{ backgroundImage: "linear-gradient(transparent, rgba(26,26,26,.0), rgba(26,26,26,1)), url(./images/order-bg.jpeg)", backgroundSize: "cover", height: "100vh", backgroundPosition: "center" }}>
                 <NavBar />
-                <div>
-                    <div className="container bg-light mt-4 p-4 shadow">
-                        <h1>Orders</h1>
-                        <hr className="bg-light" />
-                        <legend>Order Requests</legend>
-                        <RequestedOrderTable>
-                            {this.state.unfulfilledOrders.map((order, index) =>
-                                <RequestedOrderTableRow
+                <div className="container bg-light mt-4 p-3 shadow">
+                    <h4 className="m-0">Orders Page</h4>
+                </div>
+                <div className="container bg-light mt-4 p-4 shadow">
+                    <legend>Order Requests</legend>
+                    <RequestedOrderTable>
+                        {this.state.unfulfilledOrders.map((order, index) =>
+                            <RequestedOrderTableRow
+                                key={order._id}
+                                id={order._id}
+                                customerName={order.customerName}
+                                partName={order.partName}
+                                delete={this.deleteOrder}
+                            />
+                        )}
+                    </RequestedOrderTable>
+                    <legend>Fulfilled</legend>
+                    <TrackedOrderTable>
+                        {this.state.fulfilledOrders.map((order, index) => {
+                            let deliveryDate = "N/A";
+                            if (order.estimatedDelivery !== null) {
+                                deliveryDate = order.estimatedDelivery
+                            }
+                            return (
+                                <TrackedOrderTableRow
                                     key={order._id}
                                     id={order._id}
                                     customerName={order.customerName}
                                     partName={order.partName}
-                                    delete={this.deleteOrder}
+                                    status={order.status}
+                                    deliveryDate={deliveryDate}
+                                    complete={this.completeOrder}
                                 />
-                            )}
-                        </RequestedOrderTable>
-                        <legend>Fulfilled</legend>
-                        <TrackedOrderTable>
-                            {this.state.fulfilledOrders.map((order, index) => {
-                                let deliveryDate = "N/A";
-                                if (order.estimatedDelivery !== null) {
-                                    deliveryDate = order.estimatedDelivery
-                                }
-                                return (
-                                    <TrackedOrderTableRow
-                                        key={order._id}
-                                        id={order._id}
-                                        customerName={order.customerName}
-                                        partName={order.partName}
-                                        status={order.status}
-                                        deliveryDate={deliveryDate}
-                                        complete={this.completeOrder}
-                                    />
-                                )
-                            }
-                            )}
-                        </TrackedOrderTable>
-                    </div>
+                            )
+                        }
+                        )}
+                    </TrackedOrderTable>
                 </div>
+
                 <div className="container bg-light my-4 p-4 shadow">
                     {/* Create Task Form Component */}
                     <OrderForm

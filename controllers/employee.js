@@ -1,3 +1,5 @@
+var bcrypt = require('bcryptjs');
+
 module.exports = (app, db) => {
         // Route 7
     // Get all users inside users collection.
@@ -54,33 +56,37 @@ module.exports = (app, db) => {
     // Route 10
     // Create a new employee!
     app.post("/api/employee", (req, res) => {
-        db.Employee.create({
-            employeeName: req.body.name,
-            password: req.body.password
-        }, function (err, newEmployee) {
-            if (err) {
-                console.log("Error: ", err);
-                res.status(400).end();
-            } else {
-                // console.log("\n\nSuccess -- New Task Created\n\n", newEmployee);
-                res.status(200).end();
-            }
-        })
+        bcrypt.genSalt(10, function(err, salt) {
+            bcrypt.hash(req.body.password, salt, function(err, hash) {
+                db.Employee.create({
+                    employeeName: req.body.name,
+                    // Store hash in your password DB.
+                    password: hash
+                }, function (err, newEmployee) {
+                    if (err) {
+                        console.log("Error: ", err);
+                        res.status(400).end();
+                    } else {
+                        // console.log("\n\nSuccess -- New Task Created\n\n", newEmployee);
+                        res.status(200).end();
+                    }
+                })
+            });
+        });
     })
 
     // Route 11
     // Validate current users password.
     app.post("/api/employee/validate/:id", (req, res) => {
-        console.log(req.body);
-        console.log(req.params.id)
         db.Employee.findById(req.params.id, (err, result) => {
             if (err) {
                 console.log("Error: ", err)
                 res.status(400).end();
-            } else if (result.password !== req.body.passwordToCheck) {
-                res.json({validated: false})
             } else {
-                res.json({validated: true})
+                bcrypt.compare(req.body.passwordToCheck, result.password)
+                .then((bcryptRes) => {
+                    return res.json({validated: bcryptRes})
+                })
             }
         })
     })

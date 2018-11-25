@@ -125,9 +125,10 @@ class Task extends Component {
 
                 <NavBar />
                 <div>
+                    <div className="container bg-light mt-4 p-3 shadow">
+                        <h4 className="m-0">Daily Tasks</h4>
+                    </div>
                     <div className="container bg-light mt-4 p-4 shadow">
-                        <h1>Daily Tasks</h1>
-                        <hr className="bg-light" />
                         {/* Display Table Container Component*/}
                         <div className="table-responsive-md">
                             <TaskTable>
