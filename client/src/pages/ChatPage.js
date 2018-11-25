@@ -64,7 +64,7 @@ class Chat extends Component {
     }
     render() {
         return (
-            <div style={{ backgroundImage: "url(./images/chat-bg.jpeg)", backgroundSize: "cover", height: "100vh", backgroundPosition: "center"}}>
+            <div style={{ backgroundImage: "linear-gradient(transparent, rgba(26,26,26,.0), rgba(26,26,26,1)), url(./images/chat-bg.jpeg)", backgroundSize: "cover", height: "100vh", backgroundPosition: "center"}}>
                 <NavBar />
                 <div className="container bg-light mt-4 p-3 shadow">
 
@@ -75,9 +75,9 @@ class Chat extends Component {
 
                     <div className="row no-gutters">
 
-                        <div className="col-10 pr-3">
+                        <div className="col-sm-10 pr-sm-3">
                             <div className="container bg-dark px-0" id="chatbox">
-                                <div className="p-3 mb-3" style={{ height: "250px", overflowY: "scroll", overflowX: "hidden" }} id="chat-log">
+                                <div className="p-3 mb-3" style={{ height: "50vh", overflowY: "scroll", overflowX: "hidden" }} id="chat-log">
 
                                     {/* NEW STYLE */}
                                     {this.state.messages.map((message, index) => {
@@ -108,17 +108,17 @@ class Chat extends Component {
                             <form onSubmit={this.sendMessage} className="mr-3">
                                 <div className="form-group">
                                     <div className="input-group">
-                                        <input type="text" placeholder="Your message here.." className="form-control" id="message" value={this.state.message} onChange={ev => this.setState({ message: ev.target.value })} />
+                                        <input type="text" placeholder="Your message here.." className="form-control form-control-sm mb-0 pb-0" id="message" value={this.state.message} onChange={ev => this.setState({ message: ev.target.value })} />
                                         <div className="input-group-append">
-                                            <button type="submit" className="btn btn-outline-success" id="send-message">SEND</button>
+                                            <button type="submit" className="btn btn-outline-success btn-sm" id="send-message">SEND</button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
 
-                        <div className="col-2 px-3" style={{ backgroundColor: "#f2f2f2" }}>
-                            <div className="pt-3">
+                        <div className="col-sm-2 px-3" style={{ backgroundColor: "#f2f2f2" }}>
+                            <div className="pt-3 text-center">
                                 <h6>Online Users</h6>
                                 <hr />
                                 <div>
