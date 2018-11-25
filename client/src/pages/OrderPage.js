@@ -79,7 +79,7 @@ class OrderPage extends Component {
 
     render() {
         return (
-            <div style={{ backgroundImage: "url(./images/order-bg.jpeg)", backgroundSize: "cover", height: "100vh", backgroundPosition: "center" }}>
+            <div style={{ backgroundImage: "linear-gradient(transparent, rgba(26,26,26,.0), rgba(26,26,26,1)), url(./images/order-bg.jpeg)", backgroundSize: "cover", height: "100vh", backgroundPosition: "center" }}>
                 <NavBar />
                 <div>
                     <div className="container bg-light mt-4 p-4 shadow">

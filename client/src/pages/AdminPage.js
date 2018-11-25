@@ -92,7 +92,7 @@ class AdminPage extends Component {
 
     render() {
         return (
-            <div style={{ backgroundImage: "url(./images/admin-bg.jpeg)", backgroundSize: "cover", height: "100vh", backgroundPosition: "center" }}>
+            <div style={{ background: "linear-gradient(transparent, rgba(26,26,26,.0), rgba(26,26,26,1)), url(./images/admin-bg.jpeg)", backgroundSize: "cover", height: "100vh", backgroundPosition: "center" }}>
                 <NavBar />
                 <div>
                     <div className="container bg-light mt-4 p-4 shadow">
@@ -107,7 +107,7 @@ class AdminPage extends Component {
                                     submitHandler={this.submitFormHandler}
                                 />
                             </div>
-                            <div className="col col-md-6 text-center">
+                            <div className="col col-md-6">
                                 <legend>Employee List</legend>
                                 <ul className="list-group">
                                     {this.state.allEmployees.map(employee => {
