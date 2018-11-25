@@ -25,8 +25,7 @@ class AdminPage extends Component {
         // Get archived tasks.
         // Get Logged in Users
         this.loadUnfulfilledOrders();
-        this.loadFulfilledOrders();
-        this.loadAllEmployees();
+        this.loadUpdatedFulfilledOrders();
     }
 
     // Form Methods
@@ -69,11 +68,15 @@ class AdminPage extends Component {
             })
     }
 
-    loadFulfilledOrders = () => {
-        orderAPI.getFulfilledOrders()
-            .then((results) => {
-                this.setState({ fulfilledOrders: results.data });
-            })
+    loadUpdatedFulfilledOrders = () => {
+        orderAPI.updateOrders()
+        .then(() => {
+            orderAPI.getFulfilledOrders()
+                .then((results) => {
+                    this.setState({ fulfilledOrders: results.data });
+                    console.log(this.state.fulfilledOrders);
+                })
+        })
     }
 
     fulfillOrder = (id) => {
@@ -89,7 +92,7 @@ class AdminPage extends Component {
 
     render() {
         return (
-            <div style={{ backgroundImage: "url(./images/tasks-bg.jpeg)", backgroundSize: "cover", height: "100vh", backgroundPosition: "center" }}>
+            <div style={{ backgroundImage: "url(./images/admin-bg.jpeg)", backgroundSize: "cover", height: "100vh", backgroundPosition: "center" }}>
                 <NavBar />
                 <div>
                     <div className="container bg-light mt-4 p-4 shadow">

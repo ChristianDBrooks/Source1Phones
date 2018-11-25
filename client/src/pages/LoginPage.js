@@ -89,9 +89,9 @@ class LoginPage extends Component {
                         <div className="row justify-content-center">
                             <div className="col col-lg-4 d-flex flex-column">
                                 <div className="text-center">
-                                    <h1 className="border border-white p-1 text-white py-2" style={{ fontSize: "1.5em", backgroundColor: "rgba(0, 0, 0, 0.6)" }}>Source1Phones</h1>
+                                    <h1 className="border border-white p-1 text-white py-2 bg-primary" style={{ fontSize: "1.5em" }}>Source1Phones</h1>
                                 </div>
-                                <div className="card text-light border-light" style={{backgroundColor: "rgba(0, 0, 0, 0.6)"}}>
+                                <div className="card text-light border-light bg-primary" >
                                     <div className="card-header text-light border-bottom">
                                         <h4 className="text-white m-0">Login</h4>
                                     </div>
