@@ -96,23 +96,26 @@ class AdminPage extends Component {
                 <NavBar />
                 <div>
                     <div className="container bg-light mt-4 p-4 shadow">
-                        <h1>Admin Page</h1>
+                        <h4>Admin Page</h4>
                         <hr className="bg-light" />
                     </div>
-                    <div className="container bg-light mt-4 p-4 shadow">
-                        <legend>Employee List</legend>
-                        <ul className="list-group">
-                            {this.state.allEmployees.map(employee => {
-                                return (<li className="list-group-item" key={employee._id}>{employee.employeeName}</li>);
-                            })}
-                        </ul>
-                    </div>
                     <div className="container bg-light my-4 p-4 shadow">
-                        {/* Create Task Form Component */}
-                        <EmployeeForm
-                            inputHandler={this.inputChangeHandler}
-                            submitHandler={this.submitFormHandler}
-                        />
+                        <div className="row">
+                            <div className="col col-md-6">
+                                <EmployeeForm
+                                    inputHandler={this.inputChangeHandler}
+                                    submitHandler={this.submitFormHandler}
+                                />
+                            </div>
+                            <div className="col col-md-6 text-center">
+                                <legend>Employee List</legend>
+                                <ul className="list-group">
+                                    {this.state.allEmployees.map(employee => {
+                                        return (<li className="list-group-item" key={employee._id}>{employee.employeeName}</li>);
+                                    })}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <div className="container bg-light my-4 p-4 shadow">
                         <legend>Order Requests</legend>
