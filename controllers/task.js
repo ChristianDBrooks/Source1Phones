@@ -29,8 +29,8 @@ module.exports = (app, db) => {
             employee: req.body.employee,
             // Create a new priority value based on number of tasks currently in collection.
             priority: createdPriority,
-            timeIn: moment().format("hh:mm A").toString(),
-            date: moment().format("MM/DD/YYYY - H:MM").toString()
+            timeIn: moment().utcOffset(-5).format("hh:mm A").toString(),
+            date: moment().utcOffset(-5).format("MM/DD/YYYY - H:MM").toString()
         }, function (err, newTask) {
             if (err) {
                 console.log("Error: ", err);
