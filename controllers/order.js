@@ -62,7 +62,7 @@ module.exports = (app, db) => {
                     })
                     .then(response => {
                         db.Order.findByIdAndUpdate(order._id, 
-                            { $set: {status: response.data.status_description, estimatedDelivery: response.data.estimated_delivery_date}
+                            { $set: {status: response.data.status_description, estimatedDelivery: response.data.estimated_delivery_date, actualDelivery: response.data.actual_delivery_date}
                         }, (err, result) => {
                             if (err) {
                                 console.log("Error: ", err)

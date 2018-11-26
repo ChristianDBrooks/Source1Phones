@@ -41,6 +41,10 @@ const orderSchema = new Schema({
     type: String,
     default: "N/A"
   },
+  actualDelivery: {
+    type: String,
+    default: "N/A"
+  },
   status: {
     type: String
   }

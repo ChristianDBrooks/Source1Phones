@@ -5,10 +5,8 @@ const About = (props) => (
         <div>
             <div className="container bg-light shadow pt-3">
 
-                <h1>About</h1>
-
+                <h4>About</h4>
                 <hr className="bg-light" />
-
                 <div>
                     <div className="row pt-1">
                         <div className="col-12 mb-3">

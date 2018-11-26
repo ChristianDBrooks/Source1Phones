@@ -103,8 +103,9 @@ class OrderPage extends Component {
                         {this.state.fulfilledOrders.map((order, index) => {
                             let deliveryDate = "N/A";
                             if (order.estimatedDelivery !== null) {
-                                deliveryDate = order.estimatedDelivery
-                            }
+                                deliveryDate = order.estimatedDelivery;
+                            } else if (order.actualDelivery !== null)
+                                deliveryDate = order.actualDelivery;
                             return (
                                 <TrackedOrderTableRow
                                     key={order._id}
