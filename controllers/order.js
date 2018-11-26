@@ -39,7 +39,7 @@ module.exports = (app, db) => {
         })
     })
 
-    // Find all fulfilled orders and update them to then get later on in the react page.
+    // Find all fulfilled orders and get updated data from shipengine.
     app.get("/api/order/update", (req, res) => {
         db.Order.find({ isFulfilled: true }, (err, result) => {
             if (err) {
@@ -54,7 +54,8 @@ module.exports = (app, db) => {
                         },
                         headers: {
                             // ON DEPLOY
-                            'api-key': process.env.SHIPENGINE_KEY,
+                            // ON FINAL DELETE
+                            'api-key': process.env.SHIPENGINE_KEY || 'Yc4Ucn5ww6GL65vs+bXfdlHHjSebkNEZtLdi6SNmic4',
                             // ON FINAL DELETE
                             // 'api-key': 'Yc4Ucn5ww6GL65vs+bXfdlHHjSebkNEZtLdi6SNmic4',
                             'Origin': 'https://api.shipengine.com/v1/tracking?' 

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import moment from "moment";
 import employeeAPI from "../utils/api/employeeAPI";
 import orderAPI from "../utils/api/orderAPI";
 import NavBar from "../components/NavBar/Nav.js";
@@ -25,6 +26,7 @@ class AdminPage extends Component {
         // Get archived tasks.
         // Get Logged in Users
         this.loadUnfulfilledOrders();
+        this.loadFulfilledOrders();
         this.loadUpdatedFulfilledOrders();
         this.loadAllEmployees();
     }
@@ -69,21 +71,29 @@ class AdminPage extends Component {
             })
     }
 
+    loadFulfilledOrders = () => {
+        orderAPI.getFulfilledOrders()
+            .then((results) => {
+                this.setState({ fulfilledOrders: results.data });
+                console.log(this.state.fulfilledOrders);
+            })
+    }
+
     loadUpdatedFulfilledOrders = () => {
         orderAPI.updateOrders()
-        .then(() => {
-            orderAPI.getFulfilledOrders()
-                .then((results) => {
-                    this.setState({ fulfilledOrders: results.data });
-                    console.log(this.state.fulfilledOrders);
-                })
-        })
+            .then(() => {
+                orderAPI.getFulfilledOrders()
+                    .then((results) => {
+                        this.setState({ fulfilledOrders: results.data });
+                        console.log(this.state.fulfilledOrders);
+                    })
+            })
     }
 
     deleteOrder = (orderID) => {
         orderAPI.deleteOrder(orderID)
             .then(() => this.loadUnfulfilledOrders())
-            .then(() => this.loadUpdatedFulfilledOrders())
+            .then(() => this.loadFulfilledOrders())
     }
 
     fulfillOrder = (id) => {
@@ -108,8 +118,8 @@ class AdminPage extends Component {
                     <div className="container bg-light my-4 p-4 shadow">
                         <div className="row">
                             <div className="col col-md-6">
-                            <legend>New Employee</legend>
-                            <hr className="bg-light" />
+                                <legend>New Employee</legend>
+                                <hr className="bg-light" />
                                 <EmployeeForm
                                     inputHandler={this.inputChangeHandler}
                                     submitHandler={this.submitFormHandler}
@@ -130,44 +140,60 @@ class AdminPage extends Component {
                         <legend>Order Requests</legend>
                         <hr className="bg-light" />
                         <div className="table-responsive-md">
-                            <AdminOrderTable>
-                                {this.state.requestedOrders.map((order, index) =>
-                                    <AdminOrderTableRow
-                                        key={order._id}
-                                        id={order._id}
-                                        customerName={order.customerName}
-                                        partName={order.partName}
-                                        partLink={order.partLink}
-                                        employee={order.employee}
-                                        inputHandler={this.inputChangeHandler}
-                                        completeHandler={this.fulfillOrder}
-                                    />
-                                )}
-                            </AdminOrderTable>
-                        </div>
-                        <legend>Tracked Orders</legend>
-                        <hr className="bg-light" />
-                        <div className="table-responsive-md">
-                            <TrackedOrderTable>                        
-                                {this.state.fulfilledOrders.map((order, index) => {
-                                    let deliveryDate = "N/A";
-                                    if (order.estimatedDelivery !== null) {
-                                        deliveryDate = order.estimatedDelivery
-                                    }
-                                    return (
-                                        <TrackedOrderTableRow
+                            {!this.state.requestedOrders.length ?
+                                (
+                                    <div className="text-center">
+                                        <h4 className="text-danger mb-0">NO REQUESTS FOUND</h4>
+                                    </div>
+                                ) :
+                                (<AdminOrderTable>
+                                    {this.state.requestedOrders.map((order, index) =>
+                                        <AdminOrderTableRow
                                             key={order._id}
                                             id={order._id}
                                             customerName={order.customerName}
                                             partName={order.partName}
-                                            status={order.status}
-                                            deliveryDate={deliveryDate}
-                                            delete={this.deleteOrder}
+                                            partLink={order.partLink}
+                                            employee={order.employee}
+                                            inputHandler={this.inputChangeHandler}
+                                            completeHandler={this.fulfillOrder}
                                         />
-                                    )
-                                }
-                                )}
-                            </TrackedOrderTable>
+                                    )}
+                                </AdminOrderTable>)}
+                        </div>
+                        <legend>Tracked Orders</legend>
+                        <hr className="bg-light" />
+                        <div className="table-responsive-md">
+                            {!this.state.fulfilledOrders.length ?
+                                (
+                                    <div className="text-center">
+                                        <h4 className="text-danger mb-0">NO ORDERS FOUND</h4>
+                                    </div>
+                                ) :
+                                (<TrackedOrderTable>
+                                    {this.state.fulfilledOrders.map((order, index) => {
+                                    let deliveryDate = "N/A";
+                                        if (order.estimatedDelivery !== null) {
+                                            deliveryDate = order.estimatedDelivery;
+                                            deliveryDate = moment(deliveryDate).format("MM-DD-YYYY");
+                                        } else if (order.actualDelivery !== null) {
+                                            deliveryDate = order.actualDelivery.split("T", 1)[0];
+                                            deliveryDate = moment(deliveryDate).format("MM-DD-YYYY");
+                                        }
+                                        return (
+                                            <TrackedOrderTableRow
+                                                key={order._id}
+                                                id={order._id}
+                                                customerName={order.customerName}
+                                                partName={order.partName}
+                                                status={order.status}
+                                                deliveryDate={deliveryDate}
+                                                delete={this.deleteOrder}
+                                            />
+                                        )
+                                    }
+                                    )}
+                                </TrackedOrderTable>)}
                         </div>
                     </div>
                 </div>

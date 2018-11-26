@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import moment from "moment";
 import orderAPI from "../utils/api/orderAPI.js";
 import OrderForm from "../components/OrderForm/Form"
 import NavBar from "../components/NavBar/Nav.js";
@@ -87,7 +88,14 @@ class OrderPage extends Component {
                 </div>
                 <div className="container bg-light mt-4 p-4 shadow">
                     <legend>Order Requests</legend>
-                    <RequestedOrderTable>
+                    <hr />
+                    {!this.state.unfulfilledOrders.length ?
+                    (
+                    <div className="text-center">
+                        <h4 className="text-danger mb-0">NO REQUESTS FOUND</h4>
+                    </div>    
+                    ) :
+                    (<RequestedOrderTable>
                         {this.state.unfulfilledOrders.map((order, index) =>
                             <RequestedOrderTableRow
                                 key={order._id}
@@ -97,15 +105,24 @@ class OrderPage extends Component {
                                 delete={this.deleteOrder}
                             />
                         )}
-                    </RequestedOrderTable>
+                    </RequestedOrderTable>)}
                     <legend>Fulfilled</legend>
-                    <TrackedOrderTable>
+                    <hr />
+                    {!this.state.fulfilledOrders.length ?
+                    (
+                    <div className="text-center">
+                        <h4 className="text-danger mb-0">NO ORDERS FOUND</h4>
+                    </div>    
+                    ) :
+                    (<TrackedOrderTable>
                         {this.state.fulfilledOrders.map((order, index) => {
                             let deliveryDate = "N/A";
                             if (order.estimatedDelivery !== null) {
                                 deliveryDate = order.estimatedDelivery;
+                                deliveryDate = moment(deliveryDate).format("MM-DD-YYYY");
                             } else if (order.actualDelivery !== null)
                                 deliveryDate = order.actualDelivery.split("T", 1)[0];
+                                deliveryDate = moment(deliveryDate).format("MM-DD-YYYY");
                             return (
                                 <TrackedOrderTableRow
                                     key={order._id}
@@ -119,7 +136,7 @@ class OrderPage extends Component {
                             )
                         }
                         )}
-                    </TrackedOrderTable>
+                    </TrackedOrderTable>)}
                 </div>
 
                 <div className="container bg-light my-4 p-4 shadow">

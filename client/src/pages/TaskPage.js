@@ -53,11 +53,6 @@ class Task extends Component {
         console.log("Compiled Data to be sent...\n\n", compiledData);
         taskAPI.createNewTask(compiledData).then(() => {
             this.getTasks();
-            // this.setState({ name: "" })
-            // this.setState({ device: "" })
-            // this.setState({ repair: "" })
-            // this.setState({ employee: "" })
-            // this.setState({ priority: "" })
         })
     }
 
@@ -131,7 +126,13 @@ class Task extends Component {
                     <div className="container bg-light mt-4 p-4 shadow">
                         {/* Display Table Container Component*/}
                         <div className="table-responsive-md">
-                            <TaskTable>
+                            {!this.state.tasks.length ?
+                            (
+                            <div className="text-center">
+                                <h4 className="text-danger mb-0">NO TASKS FOUND</h4>
+                            </div>    
+                            ) :
+                            (<TaskTable>
                                 {this.state.tasks.map((task, index) =>
                                     <TaskTableRow
                                         id={task._id}
@@ -149,7 +150,7 @@ class Task extends Component {
                                         goDown={this.decreasePriority}
                                     />
                                 )}
-                            </TaskTable>
+                            </TaskTable>)}
                         </div>
                     </div>
                     <div className="container bg-light my-4 p-4 shadow">
