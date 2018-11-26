@@ -7,6 +7,7 @@ const path = require("path");
 const PORT = process.env.PORT || 3001;
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const db = require("./model/index")
 // ON DEPLOY
 // ON FINAL DELETE
 // const databaseURL= "mongodb://heroku_h7td18l7:q9849552n1rsbe5r5jbfvqdi2g@ds039737.mlab.com:39737/heroku_h7td18l7"
@@ -32,13 +33,25 @@ app.get("*", function (req, res) {
 });
 
 
-// Socket.io
+// Socket.io Live Chat
 
 io.on('connection', function (client) {
   console.log("User connected!");
 
   client.on('sendMessage', function (data) {
     io.emit('receiveMessage', data);
+    db.Message.create({
+      author: data.author,
+      message: data.message,
+      timestamp: data.timestamp,
+      unixTimestamp: data.unixTimestamp
+    }, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(result);
+      }
+    })
   })
 
   client.on('disconnect', function () {

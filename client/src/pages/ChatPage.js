@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import NavBar from "../components/NavBar/Nav.js";
 import io from "socket.io-client";
 import moment from "moment";
-import employeeAPI from "../utils/api/employeeAPI"
+import employeeAPI from "../utils/api/employeeAPI";
+import messageAPI from "../utils/api/messageAPI";
 // ON FINAL DELETE
+// ON DEPLOY
 // const socketURL = 'localhost:3001';
 const socketURL = window.location.hostname;
 
@@ -22,8 +24,9 @@ class Chat extends Component {
         this.socket = io(socketURL);
 
         this.componentDidMount = () => {
-            this.loadEmployeesOnline()
-            this.loadCurrentUser()
+            this.loadMessageHistory();
+            this.loadEmployeesOnline();
+            this.loadCurrentUser();
         }
 
         this.socket.on('receiveMessage', function (data) {
@@ -41,23 +44,33 @@ class Chat extends Component {
             const currentID = sessionStorage.getItem("currentUserID");
             employeeAPI.getCurrentUser(currentID)
             .then(response => {
-                console.log(response.data);
                 this.setState({currentUsername: response.data.employeeName})
             })
         }
 
+        this.loadMessageHistory = () => {
+            messageAPI.getMessageHistory()
+            .then(oldMessages => {
+                this.setState({ messages: oldMessages.data });
+                const element = document.getElementById("chat-log");
+                element.scrollTop = element.scrollHeight;
+            })
+        }
+
         const addMessage = data => {
+            console.log(data)
             this.setState({ messages: [...this.state.messages, data] });
             const element = document.getElementById("chat-log");
             element.scrollTop = element.scrollHeight;
-        };
+        }
 
         this.sendMessage = event => {
             event.preventDefault();
             this.socket.emit('sendMessage', {
                 author: this.state.currentUsername,
                 message: this.state.message,
-                timestamp: moment().format("h:mm A")
+                timestamp: moment().format("h:mm A"),
+                unixTimestamp: moment().unix()
             })
             this.setState({ message: '' });
         }
