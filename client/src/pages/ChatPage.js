@@ -4,8 +4,6 @@ import io from "socket.io-client";
 import moment from "moment";
 import employeeAPI from "../utils/api/employeeAPI";
 import messageAPI from "../utils/api/messageAPI";
-// ON FINAL DELETE
-// ON DEPLOY
 // const socketURL = 'localhost:3001';
 const socketURL = window.location.hostname;
 
@@ -58,7 +56,6 @@ class Chat extends Component {
         }
 
         const addMessage = data => {
-            console.log(data)
             this.setState({ messages: [...this.state.messages, data] });
             const element = document.getElementById("chat-log");
             element.scrollTop = element.scrollHeight;

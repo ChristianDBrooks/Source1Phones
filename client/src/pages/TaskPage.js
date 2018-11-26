@@ -29,7 +29,6 @@ class Task extends Component {
     inputChangeHandler = event => {
         const { name, value } = event.target;
         this.setState({ [name]: value });
-        console.log("Changes occuring to ", name);
     }
 
     inputChangeUpdater = event => {
@@ -50,7 +49,6 @@ class Task extends Component {
             employee: this.state.employee,
             lastTask: this.state.tasks[this.state.tasks.length - 1]
         }
-        console.log("Compiled Data to be sent...\n\n", compiledData);
         taskAPI.createNewTask(compiledData).then(() => {
             this.loadTasks();
         })
@@ -81,7 +79,6 @@ class Task extends Component {
             console.log("Can't do that!")
             return;
         }
-        console.log("Going Up");
         taskAPI.increasePriorityByOne(id, currentIndex, this.state.tasks)
             .then(() => {
                 this.loadTasks();
@@ -89,12 +86,10 @@ class Task extends Component {
     }
 
     decreasePriority = (id, currentIndex) => {
-        console.log(this.state.tasks.length)
         if ((currentIndex + 1) >= this.state.tasks.length) {
             console.log("Can't do that!")
             return;
         }
-        console.log("Going Down");
         taskAPI.decreasePriorityByOne(id, currentIndex, this.state.tasks)
             .then(() => {
                 this.loadTasks();

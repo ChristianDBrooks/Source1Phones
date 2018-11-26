@@ -36,8 +36,6 @@ class AdminPage extends Component {
     inputChangeHandler = event => {
         const { name, value } = event.target;
         this.setState({ [name]: value });
-        console.log("Changes occuring to ", name);
-        console.log(value);
     }
 
     submitFormHandler = (event) => {
@@ -47,7 +45,6 @@ class AdminPage extends Component {
             name: this.state.name,
             password: this.state.password,
         }
-        console.log("Compiled Data to be sent...\n\n", compiledData);
         employeeAPI.createEmployee(compiledData).then(() => {
             this.loadAllEmployees();
         })
@@ -60,6 +57,13 @@ class AdminPage extends Component {
             .then((results) => {
                 this.setState({ allEmployees: results.data });
             })
+    }
+
+    deleteEmployee = (id) => {
+        employeeAPI.deleteEmployee(id)
+        .then(() => {
+            this.loadAllEmployees();
+        })
     }
 
     //Order Methods
@@ -84,7 +88,6 @@ class AdminPage extends Component {
                 orderAPI.getFulfilledOrders()
                     .then((results) => {
                         this.setState({ fulfilledOrders: results.data });
-                        console.log(this.state.fulfilledOrders);
                     })
             })
     }
@@ -129,7 +132,16 @@ class AdminPage extends Component {
                                 <hr className="bg-light" />
                                 <ul className="list-group">
                                     {this.state.allEmployees.map(employee => {
-                                        return (<li className="list-group-item" key={employee._id}>{employee.employeeName}</li>);
+                                        return (
+                                            <li className="list-group-item d-flex justify-content-between" key={employee._id}>
+                                                <span>
+                                                    {employee.employeeName}
+                                                </span>
+                                                <button type="button" className="bg-transparent border-0" onClick={() => this.deleteEmployee(employee._id)} aria-label="Close">
+                                                <span className="text-secondary" aria-hidden="true"><i className="fas fa-times"></i></span>
+                                                </button>
+                                            </li>
+                                    );
                                     })}
                                 </ul>
                             </div>

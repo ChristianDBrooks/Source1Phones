@@ -24,7 +24,6 @@ class LoginPage extends Component {
         event.preventDefault();
         const name = event.target.name;
         const value = event.target.value;
-        console.log(`Setting ${name} to ${value}`)
         this.setState({ [name]: value })
     };
 
@@ -43,17 +42,14 @@ class LoginPage extends Component {
     loginHandler = (event) => {
         event.preventDefault();
         // Check if entered password is valid.
-        console.log(`Checking if the password ${this.state.enteredPassword} matches database password for employee ${this.state.selectedEmployee.name}`)
         employeeAPI.validateClient(this.state.selectedEmployee.id, this.state.enteredPassword)
             .then((response) => {
-                console.log("The response was ", response);
                 if (!response.data.validated) {
                     alert("Employee ID or password not found.")
                 } else {
                     console.log(`User was validated, changing status to online...`)
                     employeeAPI.changeEmployeeOnlineStatus(this.state.selectedEmployee.id, true)
                         .then(() => {
-                            console.log("Setting session storage variables.")
                             sessionStorage.setItem("currentUserID", this.state.selectedEmployee.id)
                             sessionStorage.setItem("currentEmployee", this.state.selectedEmployee.name)
                             // Redirect to home page.

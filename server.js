@@ -8,9 +8,6 @@ const PORT = process.env.PORT || 3001;
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const db = require("./model/index")
-// ON DEPLOY
-// ON FINAL DELETE
-// const databaseURL= "mongodb://heroku_h7td18l7:q9849552n1rsbe5r5jbfvqdi2g@ds039737.mlab.com:39737/heroku_h7td18l7"
 const databaseURL = process.env.MONGODB_URI || "mongodb://localhost/phoneStoreDB";
 mongoose.connect(databaseURL);
 

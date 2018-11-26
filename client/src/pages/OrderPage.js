@@ -31,7 +31,6 @@ class OrderPage extends Component {
     inputChangeHandler = event => {
         const { name, value } = event.target;
         this.setState({ [name]: value });
-        console.log("Changes occuring to ", name);
     }
 
     submitFormHandler = (event) => {
@@ -44,7 +43,6 @@ class OrderPage extends Component {
             orderMemo: this.state.orderMemo,
             employee: sessionStorage.getItem("currentEmployee")
         }
-        console.log("Compiled Data to be sent...\n\n", compiledData);
         orderAPI.createOrder(compiledData).then(() => {
             this.loadUnfulfilledOrders();
         })
@@ -72,7 +70,6 @@ class OrderPage extends Component {
                 orderAPI.getFulfilledOrders()
                     .then((results) => {
                         this.setState({ fulfilledOrders: results.data });
-                        console.log(this.state.fulfilledOrders);
                     })
             })
     }

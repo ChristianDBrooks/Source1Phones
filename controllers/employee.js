@@ -116,4 +116,18 @@ module.exports = (app, db) => {
             }
         })
     })
+
+    // Route 13
+    // Delete a user
+    app.delete("/api/employee/:id", (req, res) => {
+        db.Employee.findByIdAndDelete(req.params.id, (err, result) => {
+            if (err) {
+                console.log("Error: ", err)
+                res.status(400).end();
+            } else {
+                console.log("Employee deleted!")
+                res.status(200).end();
+            }
+        })
+    })
 }
