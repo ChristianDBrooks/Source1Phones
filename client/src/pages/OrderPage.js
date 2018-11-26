@@ -91,14 +91,14 @@ class OrderPage extends Component {
             <div style={{ backgroundImage: "linear-gradient(transparent, rgba(26,26,26,.0), rgba(26,26,26,1)), url(./images/order-bg.jpeg)", backgroundSize: "cover", height: "100vh", backgroundPosition: "center" }}>
                 <NavBar />
                 <div className="container bg-light mt-4 p-3 shadow">
-                    <h4 className="m-0">Orders Page</h4>
+                    <h4 className="m-0">Orders</h4>
                 </div>
                 <div className="container bg-light mt-4 p-4 shadow">
-                    <legend>Order Requests</legend>
+                    <legend className="text-center text-md-left mb-0">Order Requests</legend>
                     <hr />
                     {!this.state.unfulfilledOrders.length ?
                     (
-                    <div className="text-center">
+                    <div className="text-center mb-5">
                         <h4 className="text-danger mb-0">NO REQUESTS FOUND</h4>
                     </div>    
                     ) :
@@ -113,7 +113,7 @@ class OrderPage extends Component {
                             />
                         )}
                     </RequestedOrderTable>)}
-                    <legend>Fulfilled</legend>
+                    <legend className="text-center text-md-left mb-0">Fulfilled</legend>
                     <hr />
                     {!this.state.fulfilledOrders.length ?
                     (

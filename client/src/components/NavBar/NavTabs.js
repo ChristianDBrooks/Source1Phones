@@ -17,11 +17,11 @@ const NavTabs = () => (
         </li> */}
 
         <li className="nav-item">
-            <Link to="/orders" className="nav-link">Orders</Link>
+            <Link to="/orders" className="nav-link">View Orders</Link>
         </li>
 
         <li className="nav-item">
-            <Link to="/admin" className="nav-link">Admin</Link>
+            <Link to="/admin" className="nav-link">Admin Dashboard</Link>
         </li>
 
     </ul>

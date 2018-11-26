@@ -112,12 +112,12 @@ class AdminPage extends Component {
                 <NavBar />
                 <div>
                     <div className="container bg-light mt-4 p-3 shadow">
-                        <h4 className="m-0">Admin Page</h4>
+                        <h4 className="m-0">Dashboard</h4>
                     </div>
                     <div className="container bg-light my-4 p-4 shadow">
                         <div className="row">
                             <div className="col col-md-6">
-                                <legend>New Employee</legend>
+                                <legend className="text-center text-md-left">New Employee</legend>
                                 <hr className="bg-light" />
                                 <EmployeeForm
                                     inputHandler={this.inputChangeHandler}
@@ -125,7 +125,7 @@ class AdminPage extends Component {
                                 />
                             </div>
                             <div className="col col-md-6">
-                                <legend>Employee List</legend>
+                                <legend className="text-center text-md-left">Employee List</legend>
                                 <hr className="bg-light" />
                                 <ul className="list-group">
                                     {this.state.allEmployees.map(employee => {
@@ -136,9 +136,9 @@ class AdminPage extends Component {
                         </div>
                     </div>
                     <div className="container bg-light my-4 p-4 shadow">
-                        <legend>Order Requests</legend>
+                        <legend className="text-center text-md-left">Order Requests</legend>
                         <hr className="bg-light" />
-                        <div className="table-responsive-md">
+                        <div className="table-responsive-md mb-5">
                             {!this.state.requestedOrders.length ?
                                 (
                                     <div className="text-center">
@@ -160,13 +160,13 @@ class AdminPage extends Component {
                                     )}
                                 </AdminOrderTable>)}
                         </div>
-                        <legend>Tracked Orders</legend>
-                        <hr className="bg-light" />
+                        <legend className="text-center text-md-left mb-0">Tracked Orders</legend>
+                        <hr className="bg-light"/>
                         <div className="table-responsive-md">
                             {!this.state.fulfilledOrders.length ?
                                 (
                                     <div className="text-center">
-                                        <h4 className="text-danger mb-0">NO ORDERS FOUND</h4>
+                                        <h4 className="text-danger">NO ORDERS FOUND</h4>
                                     </div>
                                 ) :
                                 (<TrackedOrderTable>
