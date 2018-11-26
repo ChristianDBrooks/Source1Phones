@@ -139,7 +139,7 @@ class AdminPage extends Component {
                         <div className="d-flex">
                             <legend className="text-center text-md-left">Order Requests</legend>
                             <span onClick={this.loadUnfulfilledOrders}>
-                                <i class="fas fa-sync-alt fa-lg py-2"></i>
+                                <i className="fas fa-sync-alt fa-lg py-2"></i>
                             </span>
                         </div>
                         <hr className="bg-light" />
@@ -168,7 +168,7 @@ class AdminPage extends Component {
                         <div className="d-flex">
                             <legend className="text-center text-md-left mb-0">Tracked Orders</legend>
                             <span onClick={this.loadUpdatedFulfilledOrders}>
-                                <i class="fas fa-sync-alt fa-lg py-2"></i>
+                                <i className="fas fa-sync-alt fa-lg py-2"></i>
                             </span>
                         </div>
                         <hr className="bg-light" />

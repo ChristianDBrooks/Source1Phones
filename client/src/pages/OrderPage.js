@@ -95,7 +95,7 @@ class OrderPage extends Component {
                     <div className="d-flex">
                         <legend className="text-center text-md-left mb-0">Order Requests</legend>
                         <span onClick={this.loadUnfulfilledOrders}>
-                            <i class="fas fa-sync-alt fa-lg py-2"></i>
+                            <i className="fas fa-sync-alt fa-lg py-2"></i>
                         </span>
                     </div>
                     <hr />
@@ -119,7 +119,7 @@ class OrderPage extends Component {
                     <div className="d-flex">
                         <legend className="text-center text-md-left mb-0">Fulfilled</legend>
                         <span onClick={this.loadFulfilledOrders}>
-                            <i class="fas fa-sync-alt fa-lg py-2"></i>
+                            <i className="fas fa-sync-alt fa-lg py-2"></i>
                         </span>
                     </div>
                     <hr />

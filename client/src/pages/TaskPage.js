@@ -62,7 +62,6 @@ class Task extends Component {
         taskAPI.getAllTasks()
             .then(results => {
                 this.setState({ tasks: results.data })
-                // console.log(this.state.tasks);
             })
             .catch(err => { if (err) console.log(err) });
     }
@@ -77,25 +76,26 @@ class Task extends Component {
             .then(() => this.loadTasks())
     }
 
-    increasePriority = (id, currentPriority) => {
-        if ((currentPriority - 1) <= 0) {
-            // console.log("Can't do that!")
+    increasePriority = (id, currentIndex) => {
+        if (currentIndex === 0) {
+            console.log("Can't do that!")
             return;
         }
         console.log("Going Up");
-        taskAPI.increasePriorityByOne(id, currentPriority)
+        taskAPI.increasePriorityByOne(id, currentIndex, this.state.tasks)
             .then(() => {
                 this.loadTasks();
             });
     }
 
-    decreasePriority = (id, currentPriority) => {
-        if ((currentPriority + 1) > this.state.tasks.length) {
-            // console.log("Can't do that!")
+    decreasePriority = (id, currentIndex) => {
+        console.log(this.state.tasks.length)
+        if ((currentIndex + 1) >= this.state.tasks.length) {
+            console.log("Can't do that!")
             return;
         }
         console.log("Going Down");
-        taskAPI.decreasePriorityByOne(id, currentPriority)
+        taskAPI.decreasePriorityByOne(id, currentIndex, this.state.tasks)
             .then(() => {
                 this.loadTasks();
             });
@@ -132,14 +132,14 @@ class Task extends Component {
                         <div className="d-flex">
                             <legend>Repair Tasks</legend>
                             <span onClick={this.refreshTasks}>
-                                <i class="fas fa-sync-alt fa-lg"></i>
+                                <i className="fas fa-sync-alt fa-lg"></i>
                             </span>
                         </div>
                         <hr className="m-0"/>
                         <div className="table-responsive-md">
                             {!this.state.tasks.length ?
                             (
-                            <div className="text-center">
+                            <div className="text-center mt-3">
                                 <h4 className="text-danger mb-0">NO TASKS FOUND</h4>
                             </div>    
                             ) :
@@ -147,7 +147,8 @@ class Task extends Component {
                                 {this.state.tasks.map((task, index) =>
                                     <TaskTableRow
                                         id={task._id}
-                                        priority={(index + 1)}
+                                        index={index}
+                                        priority={task.priority}
                                         inputUpdater={this.inputChangeUpdater}
                                         name={task.customerName}
                                         device={task.device}

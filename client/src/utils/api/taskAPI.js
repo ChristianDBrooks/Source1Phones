@@ -8,12 +8,12 @@ export default {
         return axios.get(BASE_URL);
     },
 
-    increasePriorityByOne: (id, priority) => {
-        return axios.put(`${BASE_URL}/increase/${id}/${priority}`);
+    increasePriorityByOne: (id, index, tasks) => {
+        return axios.put(`${BASE_URL}/increase/${id}`, {selectedTaskPriority: tasks[index].priority, previousTaskPriority: tasks[index - 1].priority});
     },
 
-    decreasePriorityByOne: (id, priority) => {
-        return axios.put(`${BASE_URL}/decrease/${id}/${priority}`);
+    decreasePriorityByOne: (id, index, tasks) => {
+        return axios.put(`${BASE_URL}/decrease/${id}`, {selectedTaskPriority: tasks[index].priority, nextTaskPriority: tasks[index + 1].priority});
     },
 
     updateEmployee: (id, employeeData) => {

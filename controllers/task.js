@@ -44,24 +44,22 @@ module.exports = (app, db) => {
 
     // Route 3a
     // Update the priority of a task up by 1.
-    app.put("/api/task/increase/:id/:priority", (req, res) => {
-        const currentIndex = parseInt(req.params.priority);
-        // Subtract priority by 1
-        const modifiedIndex = parseInt(req.params.priority) - 1;
-        console.log(modifiedIndex);
+    app.put("/api/task/increase/:id", (req, res) => {
+        const selectedTaskPriority = (req.body.selectedTaskPriority);
+        const previousTaskPriority = (req.body.previousTaskPriority);
         // First grab the task above the target task. And change its priority with the target id's position.
-        db.Task.findOneAndUpdate({ priority: modifiedIndex, archived: false }, { priority: currentIndex }, (err, result) => {
+        db.Task.findOneAndUpdate({ priority: previousTaskPriority, archived: false }, { priority: selectedTaskPriority }, (err, result) => {
             if (err) {
                 console.log("Error: ", err)
                 res.status(400).end();
             } else {
                 // console.log("\n\nSuccess -- Updated Task \n\n", result);
-                db.Task.findByIdAndUpdate(req.params.id, { priority: modifiedIndex }, (err, result) => {
+                db.Task.findByIdAndUpdate(req.params.id, { priority: previousTaskPriority }, (err, result) => {
                     if (err) {
                         console.log("Error: ", err)
                         res.status(400).end();
                     } else {
-                        console.log("\n\nSuccess -- Updated Task \n\n", result);
+                        // console.log("\n\nSuccess -- Updated Task \n\n", result);
                         res.status(200).end();
                     }
                 })
@@ -71,22 +69,22 @@ module.exports = (app, db) => {
 
     // Route 3b
     // Update the priority of a task down by 1.
-    app.put("/api/task/decrease/:id/:priority", (req, res) => {
-        const currentIndex = parseInt(req.params.priority);
+    app.put("/api/task/decrease/:id/", (req, res) => {
+        const selectedTaskPriority = (req.body.selectedTaskPriority);
+        const nextTaskPriority = (req.body.nextTaskPriority);
         // Add to priority by 1
-        const modifiedIndex = parseInt(req.params.priority) + 1;
-        db.Task.findOneAndUpdate({ priority: modifiedIndex, archived: false }, { priority: currentIndex }, (err, result) => {
+        db.Task.findOneAndUpdate({ priority: nextTaskPriority, archived: false }, { priority: selectedTaskPriority }, (err, result) => {
             if (err) {
                 console.log("Error: ", err)
                 res.status(400).end();
             } else {
-                // console.log("\n\nSuccess -- Updated Task \n\n", result);
-                db.Task.findByIdAndUpdate(req.params.id, { priority: modifiedIndex }, (err, result) => {
+                // console.log("\n\nSuccess -- Updated Task Below Clicked Tasks \n\n", result);
+                db.Task.findByIdAndUpdate(req.params.id, { priority: nextTaskPriority }, (err, result) => {
                     if (err) {
                         console.log("Error: ", err)
                         res.status(400).end();
                     } else {
-                        console.log("\n\nSuccess -- Updated Task \n\n", result);
+                        // console.log("\n\nSuccess -- Updated Task \n\n", result);
                         res.status(200).end();
                     }
                 })

@@ -2,10 +2,10 @@ import React from "react";
 
 const TaskTableRow = props => (
     <tr className="bg-light">
-        <td>{props.priority}</td>
+        <td>{props.index + 1}</td>
         <td>
-            <span className="mr-2" onClick={() => props.goUp(props.id, props.priority)}><i className="fas fa-angle-up fa-lg" /></span>
-            <span onClick={() => props.goDown(props.id, props.priority)}><i className="fas fa-angle-down fa-lg" /></span>
+            <span className="mr-2" onClick={() => props.goUp(props.id, (props.index))}><i className="fas fa-angle-up fa-lg" /></span>
+            <span onClick={() => props.goDown(props.id, (props.index))}><i className="fas fa-angle-down fa-lg" /></span>
         </td>
         <td>{props.name}</td>
         <td>{props.device}</td>
