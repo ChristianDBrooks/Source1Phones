@@ -10,6 +10,7 @@ const TaskTable = props => (
         <th scope="col">Device</th>
         <th scope="col">Repair</th>
         <th scope="col">Time In</th>
+        <th scope="col">Date</th>
         <th scope="col">Employee Assigned</th>
         <th />
     </tr>

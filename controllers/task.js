@@ -30,7 +30,7 @@ module.exports = (app, db) => {
             // Create a new priority value based on number of tasks currently in collection.
             priority: createdPriority,
             timeIn: moment().utcOffset(-5).format("hh:mm A").toString(),
-            date: moment().utcOffset(-5).format("MM/DD/YYYY - H:MM").toString()
+            date: moment().utcOffset(-5).format("MM/DD/YY").toString()
         }, function (err, newTask) {
             if (err) {
                 console.log("Error: ", err);

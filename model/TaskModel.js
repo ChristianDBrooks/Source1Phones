@@ -23,6 +23,10 @@ const taskSchema = new Schema({
     type: String,
     required: true
   },
+  date: {
+    type: String,
+    required: true
+  },
   employee: {
     type: String
   },

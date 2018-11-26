@@ -75,7 +75,6 @@ class AdminPage extends Component {
         orderAPI.getFulfilledOrders()
             .then((results) => {
                 this.setState({ fulfilledOrders: results.data });
-                console.log(this.state.fulfilledOrders);
             })
     }
 

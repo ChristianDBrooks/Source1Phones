@@ -142,6 +142,7 @@ class Task extends Component {
                                         device={task.device}
                                         repair={task.repair}
                                         time={task.timeIn}
+                                        date={task.date}
                                         employee={task.employee}
                                         key={task.priority}
                                         employees={this.state.employees}

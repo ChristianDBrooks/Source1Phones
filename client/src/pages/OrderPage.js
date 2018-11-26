@@ -61,6 +61,13 @@ class OrderPage extends Component {
             })
     }
 
+    loadFulfilledOrders = () => {
+        orderAPI.getFulfilledOrders()
+            .then((results) => {
+                this.setState({ fulfilledOrders: results.data });
+            })
+    }
+
     loadUpdatedFulfilledOrders = () => {
         orderAPI.updateOrders()
             .then(() => {
@@ -76,7 +83,7 @@ class OrderPage extends Component {
     deleteOrder = (orderID) => {
         orderAPI.deleteOrder(orderID)
             .then(() => this.loadUnfulfilledOrders())
-            .then(() => this.loadUpdatedFulfilledOrders())
+            .then(() => this.loadFulfilledOrders())
     }
 
     render() {

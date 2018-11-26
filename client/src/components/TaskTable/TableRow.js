@@ -11,6 +11,7 @@ const TaskTableRow = props => (
         <td>{props.device}</td>
         <td>{props.repair}</td>
         <td>{props.time}</td>
+        <td>{props.date}</td>
         <td>
             <select className="form-control" id={props.id} name="employee" onChange={props.inputUpdater}>
                 <option>Please assign an employee...</option>
