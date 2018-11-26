@@ -17,7 +17,11 @@ const messageSchema = new Schema({
     unixTimestamp: {
         type: Number,
         require: true
-    }
+    },
+    type: {
+        type: String,
+        default: "MSG"
+    },
 });
 
 const Message = mongoose.model("Message", messageSchema);
