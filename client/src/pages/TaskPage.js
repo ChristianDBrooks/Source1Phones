@@ -20,8 +20,8 @@ class Task extends Component {
     // Do these on start
 
     componentDidMount() {
-        this.getTasks();
-        this.getEmployees();
+        this.loadTasks();
+        this.loadEmployees();
     }
 
     // Form Methods
@@ -36,7 +36,7 @@ class Task extends Component {
         const taskID = event.target.id;
         const assignedEmployee = event.target.value
         taskAPI.updateEmployee(taskID, { employee: assignedEmployee }).then(() => {
-            this.getTasks();
+            this.loadTasks();
         })
     }
 
@@ -52,13 +52,13 @@ class Task extends Component {
         }
         console.log("Compiled Data to be sent...\n\n", compiledData);
         taskAPI.createNewTask(compiledData).then(() => {
-            this.getTasks();
+            this.loadTasks();
         })
     }
 
     // Task Methods
 
-    getTasks() {
+    loadTasks() {
         taskAPI.getAllTasks()
             .then(results => {
                 this.setState({ tasks: results.data })
@@ -69,12 +69,12 @@ class Task extends Component {
 
     deleteTask = (id) => {
         taskAPI.deleteTask(id)
-            .then(() => this.getTasks())
+            .then(() => this.loadTasks())
     }
 
     archiveTask = (id) => {
         taskAPI.archiveTask(id, this.state.tasks)
-            .then(() => this.getTasks())
+            .then(() => this.loadTasks())
     }
 
     increasePriority = (id, currentPriority) => {
@@ -85,7 +85,7 @@ class Task extends Component {
         console.log("Going Up");
         taskAPI.increasePriorityByOne(id, currentPriority)
             .then(() => {
-                this.getTasks();
+                this.loadTasks();
             });
     }
 
@@ -97,18 +97,22 @@ class Task extends Component {
         console.log("Going Down");
         taskAPI.decreasePriorityByOne(id, currentPriority)
             .then(() => {
-                this.getTasks();
+                this.loadTasks();
             });
+    }
+
+    refreshTasks = () => {
+        this.loadTasks();
     }
 
     // Employee Methods
 
     updateEmployee = (employee) => {
         taskAPI.updateEmployee(employee)
-            .then(() => this.getTasks())
+            .then(() => this.loadTasks())
     }
 
-    getEmployees() {
+    loadEmployees() {
         employeeAPI.getAllEmployees()
             .then(results => this.setState({ employees: results.data }));
     }
@@ -125,6 +129,13 @@ class Task extends Component {
                     </div>
                     <div className="container bg-light mt-4 p-4 shadow">
                         {/* Display Table Container Component*/}
+                        <div className="d-flex">
+                            <legend>Repair Tasks</legend>
+                            <span onClick={this.refreshTasks}>
+                                <i class="fas fa-sync-alt fa-lg"></i>
+                            </span>
+                        </div>
+                        <hr className="m-0"/>
                         <div className="table-responsive-md">
                             {!this.state.tasks.length ?
                             (

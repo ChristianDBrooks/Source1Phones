@@ -22,8 +22,6 @@ class OrderPage extends Component {
     // Do these on start
 
     componentDidMount() {
-        // Get archived tasks.
-        // Get Logged in Users
         this.loadUnfulfilledOrders();
         this.loadUpdatedFulfilledOrders();
     }
@@ -94,56 +92,66 @@ class OrderPage extends Component {
                     <h4 className="m-0">Orders</h4>
                 </div>
                 <div className="container bg-light mt-4 p-4 shadow">
-                    <legend className="text-center text-md-left mb-0">Order Requests</legend>
+                    <div className="d-flex">
+                        <legend className="text-center text-md-left mb-0">Order Requests</legend>
+                        <span onClick={this.loadUnfulfilledOrders}>
+                            <i class="fas fa-sync-alt fa-lg py-2"></i>
+                        </span>
+                    </div>
                     <hr />
                     {!this.state.unfulfilledOrders.length ?
-                    (
-                    <div className="text-center mb-5">
-                        <h4 className="text-danger mb-0">NO REQUESTS FOUND</h4>
-                    </div>    
-                    ) :
-                    (<RequestedOrderTable>
-                        {this.state.unfulfilledOrders.map((order, index) =>
-                            <RequestedOrderTableRow
-                                key={order._id}
-                                id={order._id}
-                                customerName={order.customerName}
-                                partName={order.partName}
-                                delete={this.deleteOrder}
-                            />
-                        )}
-                    </RequestedOrderTable>)}
-                    <legend className="text-center text-md-left mb-0">Fulfilled</legend>
-                    <hr />
-                    {!this.state.fulfilledOrders.length ?
-                    (
-                    <div className="text-center">
-                        <h4 className="text-danger mb-0">NO ORDERS FOUND</h4>
-                    </div>    
-                    ) :
-                    (<TrackedOrderTable>
-                        {this.state.fulfilledOrders.map((order, index) => {
-                            let deliveryDate = "N/A";
-                            if (order.estimatedDelivery !== null) {
-                                deliveryDate = order.estimatedDelivery;
-                                deliveryDate = moment(deliveryDate).format("MM-DD-YYYY");
-                            } else if (order.actualDelivery !== null)
-                                deliveryDate = order.actualDelivery.split("T", 1)[0];
-                                deliveryDate = moment(deliveryDate).format("MM-DD-YYYY");
-                            return (
-                                <TrackedOrderTableRow
+                        (
+                            <div className="text-center mb-5">
+                                <h4 className="text-danger mb-0">NO REQUESTS FOUND</h4>
+                            </div>
+                        ) :
+                        (<RequestedOrderTable>
+                            {this.state.unfulfilledOrders.map((order, index) =>
+                                <RequestedOrderTableRow
                                     key={order._id}
                                     id={order._id}
                                     customerName={order.customerName}
                                     partName={order.partName}
-                                    status={order.status}
-                                    deliveryDate={deliveryDate}
                                     delete={this.deleteOrder}
                                 />
-                            )
-                        }
-                        )}
-                    </TrackedOrderTable>)}
+                            )}
+                        </RequestedOrderTable>)}
+                    <div className="d-flex">
+                        <legend className="text-center text-md-left mb-0">Fulfilled</legend>
+                        <span onClick={this.loadFulfilledOrders}>
+                            <i class="fas fa-sync-alt fa-lg py-2"></i>
+                        </span>
+                    </div>
+                    <hr />
+                    {!this.state.fulfilledOrders.length ?
+                        (
+                            <div className="text-center">
+                                <h4 className="text-danger mb-0">NO ORDERS FOUND</h4>
+                            </div>
+                        ) :
+                        (<TrackedOrderTable>
+                            {this.state.fulfilledOrders.map((order, index) => {
+                                let deliveryDate = "N/A";
+                                if (order.estimatedDelivery !== null) {
+                                    deliveryDate = order.estimatedDelivery;
+                                    deliveryDate = moment(deliveryDate).format("MM-DD-YYYY");
+                                } else if (order.actualDelivery !== null)
+                                    deliveryDate = order.actualDelivery.split("T", 1)[0];
+                                deliveryDate = moment(deliveryDate).format("MM-DD-YYYY");
+                                return (
+                                    <TrackedOrderTableRow
+                                        key={order._id}
+                                        id={order._id}
+                                        customerName={order.customerName}
+                                        partName={order.partName}
+                                        status={order.status}
+                                        deliveryDate={deliveryDate}
+                                        delete={this.deleteOrder}
+                                    />
+                                )
+                            }
+                            )}
+                        </TrackedOrderTable>)}
                 </div>
 
                 <div className="container bg-light my-4 p-4 shadow">

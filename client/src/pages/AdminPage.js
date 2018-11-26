@@ -136,7 +136,12 @@ class AdminPage extends Component {
                         </div>
                     </div>
                     <div className="container bg-light my-4 p-4 shadow">
-                        <legend className="text-center text-md-left">Order Requests</legend>
+                        <div className="d-flex">
+                            <legend className="text-center text-md-left">Order Requests</legend>
+                            <span onClick={this.loadUnfulfilledOrders}>
+                                <i class="fas fa-sync-alt fa-lg py-2"></i>
+                            </span>
+                        </div>
                         <hr className="bg-light" />
                         <div className="table-responsive-md mb-5">
                             {!this.state.requestedOrders.length ?
@@ -160,8 +165,13 @@ class AdminPage extends Component {
                                     )}
                                 </AdminOrderTable>)}
                         </div>
-                        <legend className="text-center text-md-left mb-0">Tracked Orders</legend>
-                        <hr className="bg-light"/>
+                        <div className="d-flex">
+                            <legend className="text-center text-md-left mb-0">Tracked Orders</legend>
+                            <span onClick={this.loadUpdatedFulfilledOrders}>
+                                <i class="fas fa-sync-alt fa-lg py-2"></i>
+                            </span>
+                        </div>
+                        <hr className="bg-light" />
                         <div className="table-responsive-md">
                             {!this.state.fulfilledOrders.length ?
                                 (
@@ -171,7 +181,7 @@ class AdminPage extends Component {
                                 ) :
                                 (<TrackedOrderTable>
                                     {this.state.fulfilledOrders.map((order, index) => {
-                                    let deliveryDate = "N/A";
+                                        let deliveryDate = "N/A";
                                         if (order.estimatedDelivery !== null) {
                                             deliveryDate = order.estimatedDelivery;
                                             deliveryDate = moment(deliveryDate).format("MM-DD-YYYY");
