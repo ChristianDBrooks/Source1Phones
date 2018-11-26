@@ -30,7 +30,6 @@ export default {
     },
 
     deleteOrder: (id) => {
-        console.log(id);
         return axios.delete(BASE_URL + "/" + id);
     }
 }

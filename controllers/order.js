@@ -54,7 +54,7 @@ module.exports = (app, db) => {
                         },
                         headers: {
                             // ON FINAL
-                            'api-key': process.env.SHIPENGINE_KEY,
+                            'api-key': process.env.SHIPENGINE_KEY || 'Yc4Ucn5ww6GL65vs+bXfdlHHjSebkNEZtLdi6SNmic4',
                             'Origin': 'https://api.shipengine.com/v1/tracking?' 
                         }
                     })

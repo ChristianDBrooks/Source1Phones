@@ -33,7 +33,14 @@ app.get("*", function (req, res) {
 // Socket.io Live Chat
 
 io.on('connection', function (client) {
-  console.log("User connected!");
+  client.on('sendConnected', function(data) {
+    console.log("User connected: " + data.name)
+    io.emit('recieveConnected', data)
+    client.on('disconnect', () => {
+      io.emit('recieveDisconnected', data)
+      console.log('User disconnected: ' + data.name)
+    })
+  })
 
   client.on('sendMessage', function (data) {
     io.emit('receiveMessage', data);
@@ -50,10 +57,6 @@ io.on('connection', function (client) {
       }
     })
   })
-
-  client.on('disconnect', function () {
-    console.log("User disconnected!")
-  });
 });
 
 //Check if db connect properly if it does run server, if not throw error.

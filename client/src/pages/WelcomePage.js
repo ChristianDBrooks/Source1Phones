@@ -8,7 +8,8 @@ const WelcomePage = () => (
             <div className="col col-lg-8 text-center d-flex align-items-center">
                 <div>
                     <h1 className="text-light text-center" style={{ textShadow: "2px 2px 20px rgba(0,0,0,0.6)" }}>Welcome to Source1Phones!</h1>
-                    <p className="m-0 p-3 text-light" style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}>Source1Phones is an all around stop shop for any electronic purchase or repair needs. We make technology work for you!</p>
+                    <p className="m-0 p-3 text-light" style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}>Source1Phones' Employee Web Application is an interactive user interface to create streamlined communication, efficiency
+                            in time management, and special ordering with ease.</p>
                     <a href="#about-scrollpoint">
                         <button className="btn btn-secondary mt-3 shadow">Learn More</button>
                     </a>
