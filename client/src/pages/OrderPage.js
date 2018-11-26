@@ -105,7 +105,7 @@ class OrderPage extends Component {
                             if (order.estimatedDelivery !== null) {
                                 deliveryDate = order.estimatedDelivery;
                             } else if (order.actualDelivery !== null)
-                                deliveryDate = order.actualDelivery;
+                                deliveryDate = order.actualDelivery.split("T", 1)[0];
                             return (
                                 <TrackedOrderTableRow
                                     key={order._id}
