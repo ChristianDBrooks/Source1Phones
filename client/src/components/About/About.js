@@ -13,11 +13,11 @@ const About = (props) => (
                         <div className="col-md-4">
                             <div className="card text-light bg-primary mb-3">
 
-                                <div className="card-header">Time Managment</div>
+                                <div className="card-header">Time Management</div>
 
                                 <div className="card-body">
                                     <h6 className="card-title">Customizable task lists with unified access from all team members.</h6>
-                                    <p className="card-text">Sorting and tracking what needs to get done is messy and can be time consuming. You hate to be the employee that answers the phone to a cusotmer asking about a repairs status that you don't readily have the info or location of their device.</p>
+                                    <p className="card-text">Sorting and tracking what needs to get done is messy and can be time consuming. You hate to be the employee that answers the phone to a customer asking about a repairs status that you don't readily have the info or location of their device.</p>
                                 </div>
                             </div>
                         </div>
@@ -28,7 +28,7 @@ const About = (props) => (
 
                                 <div className="card-body">
                                     <h6 className="card-title">Communicating between team members and customers.</h6>
-                                    <p className="card-text">With our live chat interface no need for employees, managers, or owners between stores to play phone tag all day long. Everyone can stay on the same page all day long usin our persistant live chat for quick updates and communication.</p>
+                                    <p className="card-text">With our live chat interface no need for employees, managers, or owners between stores to play phone tag all day long. Everyone can stay on the same page all day long using our persistant live chat for quick updates and communication.</p>
                                 </div>
                             </div>
                         </div>

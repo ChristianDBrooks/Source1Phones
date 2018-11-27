@@ -95,7 +95,7 @@ class LoginPage extends Component {
                                         <form className="login" onSubmit={this.loginHandler}>
                                             <div className="form-group">
                                                 <label htmlFor="selectedEmployee">Employee</label>
-                                                <select className="form-control form-control-sm mb-3" name="selectedEmployee" onChange={this.employeeUpdater}>
+                                                <select className="form-control form-control-md mb-3" name="selectedEmployee" onChange={this.employeeUpdater}>
                                                     <option>Please select an employee...</option>
                                                     {this.state.allEmployees.map(employee => {
                                                         return (<option key={employee._id} id={employee._id}>{employee.employeeName}</option>)
