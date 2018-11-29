@@ -8,12 +8,12 @@ export default {
         return axios.get(BASE_URL);
     },
 
-    increasePriorityByOne: (id, index, tasks) => {
-        return axios.put(`${BASE_URL}/increase/${id}`, {selectedTaskPriority: tasks[index].priority, previousTaskPriority: tasks[index - 1].priority});
+    getCompleteTasks: () => {
+        return axios.get(BASE_URL + "/complete");
     },
 
-    decreasePriorityByOne: (id, index, tasks) => {
-        return axios.put(`${BASE_URL}/decrease/${id}`, {selectedTaskPriority: tasks[index].priority, nextTaskPriority: tasks[index + 1].priority});
+    getIncompleteTasks: () => {
+        return axios.get(BASE_URL + "/incomplete");
     },
 
     updateEmployee: (id, employeeData) => {
@@ -25,8 +25,8 @@ export default {
         return axios.post(BASE_URL, data);
     },
 
-    archiveTask: (id, tasks) => {
-        return axios.put(BASE_URL + "/archive/" + id, {tasks});
+    archiveTask: (id) => {
+        return axios.put(BASE_URL + "/archive/" + id);
     },
 
     deleteTask: (id) => {

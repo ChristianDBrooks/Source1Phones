@@ -1,26 +1,30 @@
 import React, { Component } from "react";
 import taskAPI from "../utils/api/taskAPI";
 import employeeAPI from "../utils/api/employeeAPI";
-import TaskForm from "../components/TaskForm/Form.js";
-import TaskTable from "../components/TaskTable/Table.js";
-import TaskTableRow from "../components/TaskTable/TableRow.js";
 import NavBar from "../components/NavBar/Nav.js";
+import TaskForm from "../components/TaskForm/Form.js";
+import IncompleteTaskTable from "../components/IncompleteTaskTable/Table.js";
+import IncompleteTaskTableRow from "../components/IncompleteTaskTable/TableRow.js";
+import CompleteTaskTable from "../components/CompleteTaskTable/Table.js";
+import CompleteTaskTableRow from "../components/CompleteTaskTable/TableRow.js";
 
 class Task extends Component {
     state = {
-        tasks: [],
+        incompleteTasks: [],
+        completeTasks: [],
         employees: [],
         name: "",
         device: "",
         repair: "",
         employee: "",
-        priority: ""
+        imei: ""
     }
 
     // Do these on start
 
     componentDidMount() {
-        this.loadTasks();
+        this.loadIncompletTasks();
+        this.loadCompletTasks();
         this.loadEmployees();
     }
 
@@ -35,7 +39,7 @@ class Task extends Component {
         const taskID = event.target.id;
         const assignedEmployee = event.target.value
         taskAPI.updateEmployee(taskID, { employee: assignedEmployee }).then(() => {
-            this.loadTasks();
+            this.loadIncompletTasks();
         })
     }
 
@@ -47,64 +51,52 @@ class Task extends Component {
             device: this.state.device,
             repair: this.state.repair,
             employee: this.state.employee,
-            lastTask: this.state.tasks[this.state.tasks.length - 1]
+            imei: this.state.imei,
         }
         taskAPI.createNewTask(compiledData).then(() => {
-            this.loadTasks();
+            this.loadIncompletTasks();
         })
     }
 
     // Task Methods
 
-    loadTasks() {
-        taskAPI.getAllTasks()
+    loadIncompletTasks() {
+        taskAPI.getIncompleteTasks()
             .then(results => {
-                this.setState({ tasks: results.data })
+                this.setState({ incompleteTasks: results.data })
             })
             .catch(err => { if (err) console.log(err) });
     }
 
-    deleteTask = (id) => {
-        taskAPI.deleteTask(id)
-            .then(() => this.loadTasks())
+    loadCompletTasks() {
+        taskAPI.getCompleteTasks()
+            .then(results => {
+                this.setState({ completeTasks: results.data })
+            })
+            .catch(err => { if (err) console.log(err) });
     }
 
     archiveTask = (id) => {
-        taskAPI.archiveTask(id, this.state.tasks)
-            .then(() => this.loadTasks())
-    }
-
-    increasePriority = (id, currentIndex) => {
-        if (currentIndex === 0) {
-            console.log("Can't do that!")
-            return;
-        }
-        taskAPI.increasePriorityByOne(id, currentIndex, this.state.tasks)
+        taskAPI.archiveTask(id)
             .then(() => {
-                this.loadTasks();
-            });
+                this.loadIncompletTasks();
+                this.loadCompletTasks();
+            })
     }
 
-    decreasePriority = (id, currentIndex) => {
-        if ((currentIndex + 1) >= this.state.tasks.length) {
-            console.log("Can't do that!")
-            return;
-        }
-        taskAPI.decreasePriorityByOne(id, currentIndex, this.state.tasks)
-            .then(() => {
-                this.loadTasks();
-            });
+    refreshIncompleteTasks = () => {
+        this.loadIncompletTasks();
     }
 
-    refreshTasks = () => {
-        this.loadTasks();
+    refreshCompleteTasks = () => {
+        this.loadCompletTasks();
     }
 
     // Employee Methods
 
     updateEmployee = (employee) => {
         taskAPI.updateEmployee(employee)
-            .then(() => this.loadTasks())
+            .then(() => this.loadIncompletTasks())
     }
 
     loadEmployees() {
@@ -120,46 +112,7 @@ class Task extends Component {
                 <NavBar />
                 <div>
                     <div className="container bg-light mt-4 p-3 shadow">
-                        <h4 className="m-0">Daily Tasks</h4>
-                    </div>
-                    <div className="container bg-light mt-4 p-4 shadow">
-                        {/* Display Table Container Component*/}
-                        <div className="d-flex">
-                            <legend>Repair Tasks</legend>
-                            <span onClick={this.refreshTasks}>
-                                <i className="fas fa-sync-alt fa-lg"></i>
-                            </span>
-                        </div>
-                        <hr className="m-0"/>
-                        <div className="table-responsive-md">
-                            {!this.state.tasks.length ?
-                            (
-                            <div className="text-center mt-3">
-                                <h4 className="text-danger mb-0">NO TASKS FOUND</h4>
-                            </div>    
-                            ) :
-                            (<TaskTable>
-                                {this.state.tasks.map((task, index) =>
-                                    <TaskTableRow
-                                        id={task._id}
-                                        index={index}
-                                        priority={task.priority}
-                                        inputUpdater={this.inputChangeUpdater}
-                                        name={task.customerName}
-                                        device={task.device}
-                                        repair={task.repair}
-                                        time={task.timeIn}
-                                        date={task.date}
-                                        employee={task.employee}
-                                        key={task.priority}
-                                        employees={this.state.employees}
-                                        complete={this.archiveTask}
-                                        goUp={this.increasePriority}
-                                        goDown={this.decreasePriority}
-                                    />
-                                )}
-                            </TaskTable>)}
-                        </div>
+                        <h4 className="m-0">Daily Repairs</h4>
                     </div>
                     <div className="container bg-light my-4 p-4 shadow">
                         {/* Create Task Form Component */}
@@ -168,6 +121,76 @@ class Task extends Component {
                             inputHandler={this.inputChangeHandler}
                             submitHandler={this.submitFormHandler}
                         />
+                    </div>
+                    <div className="container bg-light mt-4 p-4 shadow">
+                        {/* Display Table Container Component*/}
+                        <div className="d-flex">
+                            <legend>Pending Repairs</legend>
+                            <span onClick={this.refreshIncompleteTasks}>
+                                <i className="fas fa-sync-alt fa-lg"></i>
+                            </span>
+                        </div>
+                        <hr />
+                        <div className="table-responsive-md">
+                            {!this.state.incompleteTasks.length ?
+                            (
+                            <div className="text-center mt-3">
+                                <h4 className="text-danger mb-0 py-3">NO TASKS FOUND</h4>
+                            </div>    
+                            ) :
+                            (<IncompleteTaskTable>
+                                {this.state.incompleteTasks.map((task, index) =>
+                                    <IncompleteTaskTableRow
+                                        id={task._id}
+                                        date={task.date}
+                                        time={task.timeIn}
+                                        name={task.customerName}
+                                        device={task.device}
+                                        repair={task.repair}
+                                        imei={task.imei}
+                                        employee={task.employee}
+                                        key={task._id}
+                                        employees={this.state.employees}
+                                        inputUpdater={this.inputChangeUpdater}
+                                        complete={this.archiveTask}
+                                    />
+                                )}
+                            </IncompleteTaskTable>)}
+                        </div>
+                    </div>
+                    <div className="container bg-light mb-4 mt-4 p-4 shadow">
+                        {/* Display Table Container Component*/}
+                        <div className="d-flex">
+                            <legend>Complete Repairs</legend>
+                            <span onClick={this.refreshCompleteTasks}>
+                                <i className="fas fa-sync-alt fa-lg"></i>
+                            </span>
+                        </div>
+                        <hr/>
+                        <div className="table-responsive-md">
+                            {!this.state.completeTasks.length ?
+                            (
+                            <div className="text-center mt-3">
+                                <h4 className="text-danger mb-0 py-3">NO TASKS FOUND</h4>
+                            </div>    
+                            ) :
+                            (<CompleteTaskTable>
+                                {this.state.completeTasks.map((task, index) =>
+                                    <CompleteTaskTableRow
+                                        id={task._id}
+                                        date={task.date}
+                                        time={task.timeIn}
+                                        name={task.customerName}
+                                        device={task.device}
+                                        repair={task.repair}
+                                        imei={task.imei}
+                                        employee={task.employee}
+                                        key={task._id}
+                                        complete={task.timeComplete}
+                                    />
+                                )}
+                            </CompleteTaskTable>)}
+                        </div>
                     </div>
                 </div>
             </div>

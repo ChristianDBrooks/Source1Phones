@@ -34,7 +34,7 @@ module.exports = (app, db) => {
                 console.log("Error: ", err)
                 res.status(400).end();
             }
-            console.log("\n\nSuccess -- Found All Results\n\n", result);
+            // console.log("\n\nSuccess -- Found All Results\n\n", result);
             res.json(result);
         })
     })
@@ -55,24 +55,25 @@ module.exports = (app, db) => {
                         headers: {
                             // ON FINAL
                             'api-key': process.env.SHIPENGINE_KEY,
-                            'Origin': 'https://api.shipengine.com/v1/tracking?' 
+                            'Origin': 'https://api.shipengine.com/v1/tracking?'
                         }
                     })
-                    .then(response => {
-                        db.Order.findByIdAndUpdate(order._id, 
-                            { $set: {status: response.data.status_description, estimatedDelivery: response.data.estimated_delivery_date, actualDelivery: response.data.actual_delivery_date}
-                        }, (err, result) => {
-                            if (err) {
-                                console.log("Error: ", err)
-                                res.status(400).end();
-                            } else {
-                                res.status(200).end();
-                            }
+                        .then(response => {
+                            db.Order.findByIdAndUpdate(order._id,
+                                {
+                                    $set: { status: response.data.status_description, estimatedDelivery: response.data.estimated_delivery_date, actualDelivery: response.data.actual_delivery_date }
+                                }, (err, result) => {
+                                    if (err) {
+                                        console.log("Error: ", err)
+                                        res.status(400).end();
+                                    } else {
+                                        res.status(200).end();
+                                    }
+                                })
                         })
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
+                        .catch(error => {
+                            console.log(error);
+                        });
                 })
             }
         })
@@ -93,10 +94,48 @@ module.exports = (app, db) => {
                 console.log("Error: ", err);
                 res.status(400).end();
             } else {
-                console.log("\n\nSuccess -- New Order Created\n\n", newOrder);
+                // console.log("\n\nSuccess -- New Order Created\n\n", newOrder);
                 res.status(200).end();
             }
         })
+    })
+
+    app.post("/api/order/notify", (req, res) => {
+        axios({
+            method: 'post',
+            url: 'https://api.mailjet.com/v3.1/send',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            auth: {
+                username: '6838a6953d5fe266057e47f2660e3539',
+                password: '349802f8cdc3e7ff1f23f43808a06369'
+            },
+            data: {
+                "Messages": [
+                    {
+                        "From": {
+                            "Email": "christiandbrooks@gmail.com",
+                            "Name": "Me"
+                        },
+                        "To": [
+                            {
+                                "Email": "source1phonesorders@gmail.com",
+                                "Name": ""
+                            }
+                        ],
+                        "Subject": "***THIS IS A TEST*** New Employee Order Request - IL",
+                        "TextPart": `***THIS IS A TEST***\n\nCustomer: ${req.body.customerName}\nPart: ${req.body.partName}\nReference Link: ${req.body.partLink}\nEmployee: ${req.body.employee}\nEmployee Notes: ${req.body.orderMemo}\n\n***THIS IS A TEST***`,
+                    }
+                ]
+            }
+        })
+        .then(function (response) {
+            console.log(response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
     })
 
     // Find task by id and change status from requested to fulfilled and set tracking data.
@@ -107,7 +146,7 @@ module.exports = (app, db) => {
                 console.log("Error: ", err)
                 res.status(400).end();
             }
-            console.log("\n\nSuccess -- Found All Results\n\n", result);
+            // console.log("\n\nSuccess -- Found All Results\n\n", result);
             res.status(200).end();
         })
     })

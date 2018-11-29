@@ -17,27 +17,15 @@ const NavTabs = () => (
             )
         }
 
-        {window.location.pathname === "/chat" ?
-            (
-            <li className="nav-item active">
-                <Link to="/chat" className="nav-link">Team Chat</Link>
-            </li>
-            ) :
-            (
-            <li className="nav-item">
-                <Link to="/chat" className="nav-link">Team Chat</Link>
-            </li>
-            )
-        }
 
         {window.location.pathname === "/orders" ?
             (
-            <li className="nav-item active">
+                <li className="nav-item active">
                 <Link to="/orders" className="nav-link">View Orders</Link>
             </li>
             ) :
             (
-            <li className="nav-item">
+                <li className="nav-item">
                 <Link to="/orders" className="nav-link">View Orders</Link>
             </li>
             )
@@ -57,6 +45,19 @@ const NavTabs = () => (
             )
         }
 
+        {window.location.pathname === "/chat" ?
+            (
+            <li className="nav-item active">
+                <Link to="/chat" className="nav-link">Team Chat</Link>
+            </li>
+            ) :
+            (
+            <li className="nav-item">
+                <Link to="/chat" className="nav-link">Team Chat</Link>
+            </li>
+            )
+        }
+        
         {/* <li className="nav-item">
             <Link to="/repair" className="nav-link">Repair Guide</Link>
         </li> */}

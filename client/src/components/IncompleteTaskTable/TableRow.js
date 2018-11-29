@@ -2,16 +2,12 @@ import React from "react";
 
 const TaskTableRow = props => (
     <tr className="bg-light">
-        <td>{props.index + 1}</td>
-        <td>
-            <span className="mr-2" onClick={() => props.goUp(props.id, (props.index))}><i className="fas fa-angle-up fa-lg" /></span>
-            <span onClick={() => props.goDown(props.id, (props.index))}><i className="fas fa-angle-down fa-lg" /></span>
-        </td>
+        <td>{props.date}</td>
+        <td>{props.time}</td>
         <td>{props.name}</td>
         <td>{props.device}</td>
+        <td>{props.imei}</td>
         <td>{props.repair}</td>
-        <td>{props.time}</td>
-        <td>{props.date}</td>
         <td>
             <select className="form-control" id={props.id} name="employee" onChange={props.inputUpdater}>
                 <option>Please assign an employee...</option>
@@ -23,9 +19,7 @@ const TaskTableRow = props => (
             </select>
         </td>
         <td>
-            <button type="button" className="bg-transparent border-0" onClick={() => props.complete(props.id)} aria-label="Close">
-                <span className="text-secondary" aria-hidden="true"><i className="fas fa-times"></i></span>
-            </button>
+            <button type="button" className="btn btn-sm btn-block btn-primary" onClick={() => props.complete(props.id)} aria-label="Close">COMPLETE</button>
         </td>
     </tr>
 );

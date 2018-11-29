@@ -61,9 +61,9 @@ class AdminPage extends Component {
 
     deleteEmployee = (id) => {
         employeeAPI.deleteEmployee(id)
-        .then(() => {
-            this.loadAllEmployees();
-        })
+            .then(() => {
+                this.loadAllEmployees();
+            })
     }
 
     //Order Methods
@@ -138,10 +138,10 @@ class AdminPage extends Component {
                                                     {employee.employeeName}
                                                 </span>
                                                 <button type="button" className="bg-transparent border-0" onClick={() => this.deleteEmployee(employee._id)} aria-label="Close">
-                                                <span className="text-secondary" aria-hidden="true"><i className="fas fa-times"></i></span>
+                                                    <span className="text-secondary" aria-hidden="true"><i className="fas fa-times"></i></span>
                                                 </button>
                                             </li>
-                                    );
+                                        );
                                     })}
                                 </ul>
                             </div>
@@ -154,12 +154,12 @@ class AdminPage extends Component {
                                 <i className="fas fa-sync-alt fa-lg py-2"></i>
                             </span>
                         </div>
-                        <hr className="bg-light" />
-                        <div className="table-responsive-md mb-5">
+                        <hr />
+                        <div className="table-responsive-md">
                             {!this.state.requestedOrders.length ?
                                 (
                                     <div className="text-center">
-                                        <h4 className="text-danger mb-0">NO REQUESTS FOUND</h4>
+                                        <h4 className="text-danger mb-0 py-3">NO REQUESTS FOUND</h4>
                                     </div>
                                 ) :
                                 (<AdminOrderTable>
@@ -177,6 +177,8 @@ class AdminPage extends Component {
                                     )}
                                 </AdminOrderTable>)}
                         </div>
+                    </div>
+                    <div className="container bg-light my-4 p-4 shadow">
                         <div className="d-flex">
                             <legend className="text-center text-md-left mb-0">Tracked Orders</legend>
                             <span onClick={this.loadUpdatedFulfilledOrders}>
@@ -188,7 +190,7 @@ class AdminPage extends Component {
                             {!this.state.fulfilledOrders.length ?
                                 (
                                     <div className="text-center">
-                                        <h4 className="text-danger">NO ORDERS FOUND</h4>
+                                        <h4 className="text-danger mb-0 py-3">NO ORDERS FOUND</h4>
                                     </div>
                                 ) :
                                 (<TrackedOrderTable>

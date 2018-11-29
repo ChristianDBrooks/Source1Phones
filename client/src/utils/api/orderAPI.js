@@ -31,5 +31,9 @@ export default {
 
     deleteOrder: (id) => {
         return axios.delete(BASE_URL + "/" + id);
+    },
+
+    sendNotificationEmail: (data) => {
+        return axios.post(BASE_URL + "/notify", data)
     }
 }

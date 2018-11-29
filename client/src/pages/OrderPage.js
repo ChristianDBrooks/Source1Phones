@@ -46,6 +46,7 @@ class OrderPage extends Component {
         orderAPI.createOrder(compiledData).then(() => {
             this.loadUnfulfilledOrders();
         })
+        this.sendNotifcation(compiledData);
     }
 
     // Order Methods
@@ -74,6 +75,10 @@ class OrderPage extends Component {
             })
     }
 
+    sendNotifcation = (data) => {
+        orderAPI.sendNotificationEmail(data);
+    }
+
 
     deleteOrder = (orderID) => {
         orderAPI.deleteOrder(orderID)
@@ -88,6 +93,13 @@ class OrderPage extends Component {
                 <div className="container bg-light mt-4 p-3 shadow">
                     <h4 className="m-0">Orders</h4>
                 </div>
+                <div className="container bg-light my-4 p-4 shadow">
+                    {/* Create Task Form Component */}
+                    <OrderForm
+                        inputHandler={this.inputChangeHandler}
+                        submitHandler={this.submitFormHandler}
+                    />
+                </div>
                 <div className="container bg-light mt-4 p-4 shadow">
                     <div className="d-flex">
                         <legend className="text-center text-md-left mb-0">Order Requests</legend>
@@ -98,8 +110,8 @@ class OrderPage extends Component {
                     <hr />
                     {!this.state.unfulfilledOrders.length ?
                         (
-                            <div className="text-center mb-5">
-                                <h4 className="text-danger mb-0">NO REQUESTS FOUND</h4>
+                            <div className="text-center">
+                                <h4 className="text-danger mb-0 py-3">NO REQUESTS FOUND</h4>
                             </div>
                         ) :
                         (<RequestedOrderTable>
@@ -113,6 +125,8 @@ class OrderPage extends Component {
                                 />
                             )}
                         </RequestedOrderTable>)}
+                </div>
+                <div className="container bg-light mt-4 mb-4 p-3 shadow">
                     <div className="d-flex">
                         <legend className="text-center text-md-left mb-0">Fulfilled</legend>
                         <span onClick={this.loadFulfilledOrders}>
@@ -123,7 +137,7 @@ class OrderPage extends Component {
                     {!this.state.fulfilledOrders.length ?
                         (
                             <div className="text-center">
-                                <h4 className="text-danger mb-0">NO ORDERS FOUND</h4>
+                                <h4 className="text-danger mb-0 py-3">NO ORDERS FOUND</h4>
                             </div>
                         ) :
                         (<TrackedOrderTable>
@@ -150,14 +164,6 @@ class OrderPage extends Component {
                             }
                             )}
                         </TrackedOrderTable>)}
-                </div>
-
-                <div className="container bg-light my-4 p-4 shadow">
-                    {/* Create Task Form Component */}
-                    <OrderForm
-                        inputHandler={this.inputChangeHandler}
-                        submitHandler={this.submitFormHandler}
-                    />
                 </div>
             </div>
         )

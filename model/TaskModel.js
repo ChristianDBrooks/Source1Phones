@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
  
 const taskSchema = new Schema({
-  priority: {
+  imei: {
     type: Number
   },
   customerName: {
@@ -34,6 +34,12 @@ const taskSchema = new Schema({
     type: Boolean,
     default: false,
     required: true
+  },
+  timestamp: {
+    type: Number
+  },
+  timeComplete: {
+    type: String
   }
 });
 

@@ -21,7 +21,7 @@ const App = () => (
           {/* <Route exact path="/repair" component={RepairPage}/> */}
           <Route exact path="/orders" component={OrderPage}/>
           <Route exact path="/admin" component={AdminPage}/>
-          <Route component={NotFoundPage}/>
+          <Route path ="/*"component={NotFoundPage}/>
         </Switch>
       </div>
     </div>
