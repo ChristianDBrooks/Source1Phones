@@ -2,20 +2,19 @@ import React from "react";
 
 const TaskTableRow = props => (
     <tr className="bg-light">
-        <td>{props.date}</td>
-        <td>{props.time}</td>
-        <td>{props.name}</td>
-        <td>{props.device}</td>
-        <td>{props.imei}</td>
-        <td>{props.repair}</td>
+
+        <td data-toggle="modal" data-target={"#modal-" + props.modalID}>{props.date}</td>
+        <td data-toggle="modal" data-target={"#modal-" + props.modalID}>{props.name}</td>
+        <td data-toggle="modal" data-target={"#modal-" + props.modalID}>{props.device}</td>
+        <td data-toggle="modal" data-target={"#modal-" + props.modalID}>{props.repair}</td>
         <td>
             <select className="form-control" id={props.id} name="employee" onChange={props.inputUpdater}>
                 <option>Please assign an employee...</option>
                 {props.employees.map(employee =>
                     employee.employeeName === props.employee ?
-                    <option key={props.employee} selected>{props.employee}</option> : 
-                    <option key={employee.employeeName}>{employee.employeeName}</option>
-                    )}
+                        <option key={props.employee} selected>{props.employee}</option> :
+                        <option key={employee.employeeName}>{employee.employeeName}</option>
+                )}
             </select>
         </td>
         <td>

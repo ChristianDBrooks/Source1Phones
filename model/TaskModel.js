@@ -2,9 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
  
 const taskSchema = new Schema({
-  imei: {
-    type: Number
-  },
   customerName: {
     type: String,
     trim: true,
@@ -15,9 +12,15 @@ const taskSchema = new Schema({
     trim: true,
     required: true
   },
+  imei: {
+    type: Number
+  },
   repair: {
     type: String,
     required: true
+  },
+  notes: {
+    type: String
   },
   timeIn: {
     type: String,

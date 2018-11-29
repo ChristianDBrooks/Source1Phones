@@ -11,7 +11,7 @@ const TaskTable = props => (
         <th scope="col">IMEI</th>
         <th scope="col">Repair</th>
         <th scope="col">Comleted By</th>
-        <th scope="col">Completed At</th>
+        <th scope="col">Completed On</th>
     </tr>
   </thead>
   <tbody className="text-center">

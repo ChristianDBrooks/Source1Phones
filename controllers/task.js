@@ -40,6 +40,7 @@ module.exports = (app, db) => {
             repair: req.body.repair,
             employee: req.body.employee,
             imei: req.body.imei,
+            notes: req.body.notes,
             timeIn: moment().utcOffset(-5).format("h:mm A").toString(),
             date: moment().utcOffset(-5).format("MM-DD-YY").toString(),
             timeComplete: moment().format("MM-DD-YY").toString(),
