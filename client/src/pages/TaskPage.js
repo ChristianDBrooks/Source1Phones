@@ -172,7 +172,7 @@ class Task extends Component {
                                                 employees={this.state.employees}
                                                 inputUpdater={this.inputChangeUpdater}
                                                 complete={this.archiveTask}
-                                                modalID={task._id}
+                                                modalID={"incomplete-" + task._id}
                                             />
                                         )}
                                     </IncompleteTaskTable>
@@ -185,7 +185,7 @@ class Task extends Component {
                                             imei={task.imei}
                                             notes={task.notes}
                                             completeStatus={task.archived}
-                                            modalID={task._id}
+                                            modalID={"incomplete-" + task._id}
                                             />
                                     )}
                                 </div>)}
@@ -207,7 +207,8 @@ class Task extends Component {
                                         <h4 className="text-danger mb-0 py-3">NO TASKS FOUND</h4>
                                     </div>
                                 ) :
-                                (<CompleteTaskTable>
+                                (<div>
+                                <CompleteTaskTable>
                                     {this.state.completeTasks.map((task, index) =>
                                         <CompleteTaskTableRow
                                             id={task._id}
@@ -220,9 +221,23 @@ class Task extends Component {
                                             employee={task.employee}
                                             key={task._id}
                                             complete={task.timeComplete}
+                                            modalID={"complete-" + task._id}
                                         />
                                     )}
-                                </CompleteTaskTable>)}
+                                </CompleteTaskTable>
+                                {this.state.completeTasks.map((task, index) => 
+                                        <Modal 
+                                            name={task.customerName}
+                                            device={task.device}
+                                            repair={task.repair}
+                                            time={task.timeIn}
+                                            imei={task.imei}
+                                            notes={task.notes}
+                                            completeStatus={task.archived}
+                                            modalID={"complete-" + task._id}
+                                            />
+                                    )}
+                                </div>)}
                         </div>
                     </div>
                 </div>

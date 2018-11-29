@@ -3,10 +3,10 @@ import React from "react";
 const TaskTableRow = props => (
     <tr className="bg-light">
 
-        <td data-toggle="modal" data-target={"#modal-" + props.modalID}>{props.date}</td>
-        <td data-toggle="modal" data-target={"#modal-" + props.modalID}>{props.name}</td>
-        <td data-toggle="modal" data-target={"#modal-" + props.modalID}>{props.device}</td>
-        <td data-toggle="modal" data-target={"#modal-" + props.modalID}>{props.repair}</td>
+        <td data-toggle="modal" data-target={"#" + props.modalID}>{props.date}</td>
+        <td data-toggle="modal" data-target={"#" + props.modalID}>{props.name}</td>
+        <td data-toggle="modal" data-target={"#" + props.modalID}>{props.device}</td>
+        <td data-toggle="modal" data-target={"#" + props.modalID}>{props.repair}</td>
         <td>
             <select className="form-control" id={props.id} name="employee" onChange={props.inputUpdater}>
                 <option>Please assign an employee...</option>

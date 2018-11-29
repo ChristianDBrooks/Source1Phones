@@ -1,7 +1,7 @@
 import React from "react";
 
 const TaskTableRow = props => (
-    <tr className="bg-light">
+    <tr className="bg-light" data-toggle="modal" data-target={"#" + props.modalID}>
         <td>{props.date}</td>
         <td>{props.time}</td>
         <td>{props.name}</td>
