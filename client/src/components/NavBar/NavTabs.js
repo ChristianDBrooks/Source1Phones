@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const NavTabs = () => (
+const NavTabs = props => (
     <ul className="navbar-nav mr-auto">
 
         {window.location.pathname === "/tasks" ?
@@ -53,7 +53,7 @@ const NavTabs = () => (
             ) :
             (
             <li className="nav-item">
-                <Link to="/chat" className="nav-link">Team Chat</Link>
+                <Link to="/chat" className="nav-link">Team Chat <span class="badge badge-pill badge-light p-1">{props.msgCount}</span></Link>
             </li>
             )
         }

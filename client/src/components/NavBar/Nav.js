@@ -2,20 +2,32 @@ import React, { Component } from "react";
 import NavTabs from "./NavTabs.js";
 import employeeAPI from "../../utils/api/employeeAPI";
 import { Link } from "react-router-dom";
+import io from "socket.io-client";
+// // ON DEPLOY
+const socketURL = 'localhost:3001';
+// const socketURL = window.location.hostname;
 
 class Nav extends Component {
+  constructor(props) {
+    super(props);
 
-  logoutUser = (event) => {
-    event.preventDefault();
+    this.state = {
+      msgCount: 0
+    }
 
-    // Log user with the id in session out in the db.
-    employeeAPI.changeEmployeeOnlineStatus(sessionStorage.getItem("currentUserID"), false);
+    this.socket = io(socketURL);
 
-    // Delete the session storage id and user.
-    sessionStorage.removeItem("currentUserID")
-    sessionStorage.removeItem("currentEmployee")
+    this.logoutUser = (event) => {
+      event.preventDefault();
+
+      // Log user with the id in session out in the db.
+      employeeAPI.changeEmployeeOnlineStatus(sessionStorage.getItem("currentUserID"), false);
+
+      // Delete the session storage id and user.
+      sessionStorage.removeItem("currentUserID")
+      sessionStorage.removeItem("currentEmployee")
+    }
   }
-
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark shadow" style={{ backgroundColor: "rgba(0, 0, 0, 0.75)" }}>
@@ -28,7 +40,7 @@ class Nav extends Component {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarColor01">
-          <NavTabs />
+          <NavTabs msgCount={this.state.msgCount} />
 
           <div className="mr-5">
             <span className="py-2">{sessionStorage.getItem("currentEmployee")}</span>

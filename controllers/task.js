@@ -15,7 +15,7 @@ module.exports = (app, db) => {
     })
 
     app.get("/api/task/complete", (req, res) => {
-        db.Task.find({ archived: true }, null, { sort: { timestamp: 1 } }, (err, result) => {
+        db.Task.find({ archived: true }, null, { sort: { timestamp: -1 } }, (err, result) => {
             console.log("Checking db...")
             if (err) {
                 console.log("Error: ", err)
