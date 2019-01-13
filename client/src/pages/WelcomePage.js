@@ -4,7 +4,7 @@ import About from "../components/About/About"
 
 const WelcomePage = () => (
     <div style={{ maxWidth: "100%", overflowX: "hidden" }}>
-        <div className="row justify-content-center" style={{ backgroundImage: "url(./images/vents.jpg)", backgroundSize: "cover", height: "100vh", backgroundPosition: "center" }}>
+        <div className="row justify-content-center" style={{ backgroundImage: "url(./images/server-box.jpg)", backgroundSize: "cover", height: "100vh", backgroundPosition: "center" }}>
             <div className="col col-lg-8 text-center d-flex align-items-center">
                 <div>
                     <h1 className="text-light text-center" style={{ textShadow: "2px 2px 20px rgba(0,0,0,0.6)" }}>Welcome to Source1Phones!</h1>
