@@ -29,7 +29,7 @@ class Chat extends Component {
             addContent(data);
         });
 
-        this.socket.on('recieveConnected', function (data) {
+        this.socket.on('receiveConnected', function (data) {
             addUser(data.name)
             addContent({
                 message: `${data.name} has joined!`,
@@ -37,7 +37,7 @@ class Chat extends Component {
             });
         })
 
-        this.socket.on('recieveDisconnected', function (data) {
+        this.socket.on('receiveDisconnected', function (data) {
             removeUser(data.name)
             addContent({
                 message: `${data.name} has left!`,
@@ -66,11 +66,11 @@ class Chat extends Component {
         }
 
         const addUser = data => {
-            this.setState({onlineUsers: [...this.state.onlineUsers, data]})
+            this.setState({ onlineUsers: [...this.state.onlineUsers, data] })
         }
 
         const removeUser = data => {
-            this.setState({onlineUsers: this.state.onlineUsers.splice(this.state.onlineUsers.indexOf(data), 1)})
+            this.setState({ onlineUsers: this.state.onlineUsers.splice(this.state.onlineUsers.indexOf(data), 1) })
         }
 
         this.sendMessage = event => {

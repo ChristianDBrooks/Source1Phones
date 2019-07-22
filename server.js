@@ -27,7 +27,7 @@ routes(app);
 // Define any API routes before this runs
 app.get("*", function (req, res) {
   //on deploy
-  res.sendFile(path.join(__dirname, "./client/build/index.html"), {}, function(err) {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"), {}, function (err) {
     if (err) {
       res.status(500).send(err)
     }
@@ -38,11 +38,11 @@ app.get("*", function (req, res) {
 // Socket.io Live Chat
 
 io.on('connection', function (client) {
-  client.on('sendConnected', function(data) {
+  client.on('sendConnected', function (data) {
     console.log("User connected: " + data.name)
-    io.emit('recieveConnected', data)
+    io.emit('receiveConnected', data)
     client.on('disconnect', () => {
-      io.emit('recieveDisconnected', data)
+      io.emit('receiveDisconnected', data)
       console.log('User disconnected: ' + data.name)
     })
   })
@@ -66,7 +66,7 @@ io.on('connection', function (client) {
 
 //Check if db connect properly if it does run server, if not throw error.
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
-mongoose.connection.once('open', function() {
+mongoose.connection.once('open', function () {
   // we're connected!
   //Server
   server.listen(PORT, function () {
