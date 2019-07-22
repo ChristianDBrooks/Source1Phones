@@ -4,8 +4,8 @@ import employeeAPI from "../../utils/api/employeeAPI";
 import { Link } from "react-router-dom";
 import io from "socket.io-client";
 // // ON DEPLOY
-const socketURL = 'localhost:3001';
-// const socketURL = window.location.hostname;
+// const socketURL = 'localhost:3001';
+const socketURL = window.location.hostname;
 
 class Nav extends Component {
   constructor(props) {

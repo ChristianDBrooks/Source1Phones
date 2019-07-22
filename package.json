@@ -16,18 +16,18 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^3.5.0",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.19.1"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.18.3",
-    "express": "^4.16.3",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
     "if-env": "^1.0.4",
-    "moment": "^2.22.2",
-    "mongoose": "^5.3.13",
-    "react": ">=15",
+    "moment": "^2.24.0",
+    "mongoose": "^5.6.5",
+    "react": "^16.8.6",
     "react-router-dom": "4.3.1",
-    "socket.io": "^2.1.1"
+    "socket.io": "^2.2.0"
   }
 }
