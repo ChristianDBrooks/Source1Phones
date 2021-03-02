@@ -9,11 +9,11 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const db = require("./model/index")
 const databaseURL = process.env.MONGODB_URI || "mongodb://localhost/phoneStoreDB";
-mongoose.connect(databaseURL);
+mongoose.connect(databaseURL, {useNewUrlParser: true, useUnifiedTopology: true});
 
 // Middleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
