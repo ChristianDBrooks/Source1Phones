@@ -93,6 +93,7 @@ class LoginPage extends Component {
                                     </div>
                                     <div className="card-body">
                                         <form className="login" onSubmit={this.loginHandler}>
+                                            <p>Checking out my website from a portfolio or elsewhere? The password to employee guest is 'guest'.</p>
                                             <div className="form-group">
                                                 <label htmlFor="selectedEmployee">Employee</label>
                                                 <select className="form-control form-control-md mb-3" name="selectedEmployee" onChange={this.employeeUpdater}>
