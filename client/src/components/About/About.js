@@ -7,6 +7,9 @@ const About = (props) => (
 
                 <h4>About</h4>
                 <hr className="bg-light" />
+
+                <p className="mb-3 p-3 text-dark">Source1Phones' Employee Web Application is an interactive user interface that creates streamlined communication, efficiency
+                            in time management, and special ordering with ease.</p>
                 <div>
                     <div className="row">
 
